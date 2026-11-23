@@ -24,6 +24,8 @@
   const state = {
     lang: (data.meta && data.meta.defaultLang) || "zh",
     projectFilter: "all",
+    galleryFilter: "featured",
+    lightboxIndex: -1,
     emailVisible: false,
     messageOpen: false,
     activeNavId: "about"
@@ -121,10 +123,6 @@
       ? `<p class="author__subname">${escapeHtml(t(data.profile.subname))}</p>`
       : "";
 
-    const sigHtml = data.profile.signature
-      ? `<div class="author__signature"><img src="${escapeHtml(data.profile.signature)}" alt="${escapeHtml(t(data.profile.name))}" /></div>`
-      : "";
-
     sidebar.innerHTML = `
       <div class="author__avatar-wrap">
         <img class="author__avatar" src="${escapeHtml(data.profile.avatar)}" alt="${escapeHtml(t(data.profile.avatarAlt))}" />
@@ -134,7 +132,6 @@
         ${subnameHtml}
         <p class="author__bio">${escapeHtml(t(data.profile.bio))}</p>
         <ul class="author__urls">${linksHtml}</ul>
-        ${sigHtml}
       </div>
     `;
   }
@@ -328,6 +325,145 @@
   }
 
   /* ------------------------------------------------------------------------
+     6b. Personal Image / Visual Portfolio Gallery + Lightbox
+     ------------------------------------------------------------------------ */
+  function getFilteredGalleryItems() {
+    const items = (data.gallery && data.gallery.items) || [];
+    if (state.galleryFilter === "all") return items;
+    if (state.galleryFilter === "featured") return items.filter((item) => item.featured);
+    return items.filter((item) => item.category === state.galleryFilter);
+  }
+
+  function renderGallery() {
+    const el = document.getElementById("gallery");
+    if (!el || !data.gallery) return;
+
+    const filtersHtml = (data.gallery.filters || [])
+      .map((f) => {
+        const active = state.galleryFilter === f.id;
+        return `<button type="button" class="filter-pill gallery-filter-pill" data-filter="${escapeHtml(f.id)}" aria-pressed="${active}">${escapeHtml(t(f.label))}</button>`;
+      })
+      .join("");
+
+    const items = getFilteredGalleryItems();
+    const cardsHtml = items
+      .map((item, idx) => {
+        const caption = t(item.caption);
+        const pos = item.pos || "center 20%";
+        return `
+          <button type="button" class="gallery-card" data-gallery-idx="${idx}" aria-label="${escapeHtml(caption)}">
+            <span class="gallery-card__frame">
+              <img class="gallery-card__img" src="${escapeHtml(item.src)}" alt="${escapeHtml(caption)}" style="object-position:${escapeHtml(pos)}" loading="lazy" />
+            </span>
+            <span class="gallery-card__caption">${escapeHtml(caption)}</span>
+          </button>
+        `;
+      })
+      .join("");
+
+    el.innerHTML = `
+      ${renderSectionHeading(t(data.gallery.heading), t(data.gallery.sub))}
+      <p class="gallery-intro">${escapeHtml(t(data.gallery.intro))}</p>
+      <div class="filter-bar" role="group" aria-label="${escapeHtml(t(data.gallery.heading))}">
+        ${filtersHtml}
+      </div>
+      <div class="gallery-grid">${cardsHtml}</div>
+    `;
+
+    el.querySelectorAll(".gallery-filter-pill").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        state.galleryFilter = btn.dataset.filter;
+        state.lightboxIndex = -1;
+        renderGallery();
+        renderLightbox();
+      });
+    });
+
+    el.querySelectorAll(".gallery-card").forEach((card) => {
+      card.addEventListener("click", () => {
+        state.lightboxIndex = Number(card.dataset.galleryIdx);
+        renderLightbox();
+      });
+    });
+  }
+
+  function renderLightbox() {
+    const box = document.getElementById("lightbox");
+    if (!box) return;
+
+    const items = getFilteredGalleryItems();
+    if (state.lightboxIndex < 0 || state.lightboxIndex >= items.length) {
+      box.hidden = true;
+      box.innerHTML = "";
+      document.body.style.overflow = "";
+      return;
+    }
+
+    const item = items[state.lightboxIndex];
+    const caption = t(item.caption);
+    const closeLabel = state.lang === "zh" ? "关闭预览" : "Close preview";
+    const prevLabel = state.lang === "zh" ? "上一张" : "Previous image";
+    const nextLabel = state.lang === "zh" ? "下一张" : "Next image";
+
+    box.hidden = false;
+    document.body.style.overflow = "hidden";
+    box.innerHTML = `
+      <button type="button" class="lightbox__close" id="lb-close" aria-label="${escapeHtml(closeLabel)}">&times;</button>
+      <button type="button" class="lightbox__nav lightbox__nav--prev" id="lb-prev" aria-label="${escapeHtml(prevLabel)}">&#8249;</button>
+      <div class="lightbox__dialog">
+        <img class="lightbox__img" src="${escapeHtml(item.src)}" alt="${escapeHtml(caption)}" />
+        <div class="lightbox__bar">
+          <span>${escapeHtml(caption)}</span>
+          <span class="lightbox__counter">${state.lightboxIndex + 1} / ${items.length}</span>
+        </div>
+      </div>
+      <button type="button" class="lightbox__nav lightbox__nav--next" id="lb-next" aria-label="${escapeHtml(nextLabel)}">&#8250;</button>
+    `;
+
+    const closeBtn = document.getElementById("lb-close");
+    const prevBtn = document.getElementById("lb-prev");
+    const nextBtn = document.getElementById("lb-next");
+
+    closeBtn.addEventListener("click", () => {
+      state.lightboxIndex = -1;
+      renderLightbox();
+    });
+    prevBtn.addEventListener("click", () => {
+      state.lightboxIndex = (state.lightboxIndex - 1 + items.length) % items.length;
+      renderLightbox();
+    });
+    nextBtn.addEventListener("click", () => {
+      state.lightboxIndex = (state.lightboxIndex + 1) % items.length;
+      renderLightbox();
+    });
+
+    box.onclick = (event) => {
+      if (event.target === box) {
+        state.lightboxIndex = -1;
+        renderLightbox();
+      }
+    };
+  }
+
+  function bindLightboxKeyboard() {
+    document.addEventListener("keydown", (event) => {
+      if (state.lightboxIndex < 0) return;
+      const items = getFilteredGalleryItems();
+      if (!items.length) return;
+      if (event.key === "Escape") {
+        state.lightboxIndex = -1;
+        renderLightbox();
+      } else if (event.key === "ArrowLeft") {
+        state.lightboxIndex = (state.lightboxIndex - 1 + items.length) % items.length;
+        renderLightbox();
+      } else if (event.key === "ArrowRight") {
+        state.lightboxIndex = (state.lightboxIndex + 1) % items.length;
+        renderLightbox();
+      }
+    });
+  }
+
+  /* ------------------------------------------------------------------------
      7. Contact Section (Anti-scraper Email Reveal + Copy + Formspree Form)
      ------------------------------------------------------------------------ */
   function renderContact() {
@@ -470,13 +606,7 @@
   function renderFooter() {
     const el = document.getElementById("site-footer");
     if (!el) return;
-    const sigHtml = data.profile.signature
-      ? `<img class="site-footer__sig" src="${escapeHtml(data.profile.signature)}" alt="" aria-hidden="true" />`
-      : "";
-    el.innerHTML = `
-      <span>${escapeHtml(t(data.footer))}</span>
-      ${sigHtml}
-    `;
+    el.innerHTML = `<span>${escapeHtml(t(data.footer))}</span>`;
   }
 
   function copyTextToClipboard(text) {
@@ -556,11 +686,14 @@
     renderProjects();
     renderExperience();
     renderCapabilities();
+    renderGallery();
     renderContact();
     renderFooter();
+    renderLightbox();
   }
 
   bindLanguageSwitch();
+  bindLightboxKeyboard();
   renderAll();
   setupScrollSpy();
 })();

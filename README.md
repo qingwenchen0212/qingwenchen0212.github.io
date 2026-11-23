@@ -15,7 +15,7 @@ Live site: https://qingwenchen0212.github.io/
     ├── js/
     │   ├── site-data.js         # 全站中英双语内容单一数据源
     │   └── app.js               # 渲染与交互逻辑（语言切换、项目筛选、防爬虫邮箱展示）
-    └── images/                  # 个人头像、中传校徽、手写签名
+    └── images/                  # 个人头像、校徽校标与个人形象图集
 ```
 
 ## 内容更新

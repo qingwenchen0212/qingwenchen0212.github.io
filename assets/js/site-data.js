@@ -23,6 +23,7 @@ window.SITE_DATA = {
     { id: "projects", label: { zh: "代表项目", en: "Projects" } },
     { id: "experience", label: { zh: "工作与教育", en: "Experience" } },
     { id: "capabilities", label: { zh: "核心能力", en: "Capabilities" } },
+    { id: "gallery", label: { zh: "个人形象", en: "Gallery" } },
     { id: "contact", label: { zh: "联系方式", en: "Contact" } }
   ],
 
@@ -33,7 +34,6 @@ window.SITE_DATA = {
       zh: "陈卿雯个人头像",
       en: "Portrait of Qingwen Chen"
     },
-    signature: "assets/images/signature.png",
     name: {
       zh: "陈卿雯",
       en: "Qingwen Chen"
@@ -435,6 +435,163 @@ window.SITE_DATA = {
           zh: ["KOL/KOC 合作", "社媒矩阵运营", "线索沉淀", "直播/主持转化"],
           en: ["KOL/KOC Partnerships", "Social Matrix Ops", "B2B Lead Capture", "Live Hosting & Conversion"]
         }
+      }
+    ]
+  },
+
+  gallery: {
+    heading: { zh: "个人形象", en: "Personal Image" },
+    sub: { zh: "PORTFOLIO", en: "PORTFOLIO" },
+    intro: {
+      zh: "涵盖形象棚拍、多元风格写真以及 AI 产品与品牌官方直播出镜实录，点击任意照片可查看大图。",
+      en: "Selected studio portraits, editorial photography, and official AI & brand live-hosting appearances. Click any photo to view full size."
+    },
+    filters: [
+      { id: "featured", label: { zh: "精选形象", en: "Featured" } },
+      { id: "portrait", label: { zh: "写真与棚拍", en: "Portraits & Editorial" } },
+      { id: "live", label: { zh: "AI 与品牌直播", en: "AI & Brand Live" } },
+      { id: "all", label: { zh: "全部", en: "All" } }
+    ],
+    items: [
+      {
+        src: "assets/images/gallery/studio-01.jpg",
+        category: "portrait",
+        featured: true,
+        pos: "center 20%",
+        caption: { zh: "极简形象棚拍", en: "Minimalist Studio Portrait" }
+      },
+      {
+        src: "assets/images/gallery/editorial-01.jpg",
+        category: "portrait",
+        featured: true,
+        pos: "center 24%",
+        caption: { zh: "法式花艺质感写真", en: "Floral Tea House Editorial" }
+      },
+      {
+        src: "assets/images/gallery/editorial-02.jpg",
+        category: "portrait",
+        featured: true,
+        pos: "center 22%",
+        caption: { zh: "湖畔光影侧颜", en: "Lakeside Natural Light Profile" }
+      },
+      {
+        src: "assets/images/gallery/editorial-03.jpg",
+        category: "portrait",
+        featured: true,
+        pos: "center 28%",
+        caption: { zh: "建筑空间极简外拍", en: "Architectural Minimalist Shoot" }
+      },
+      {
+        src: "assets/images/gallery/editorial-05.jpg",
+        category: "portrait",
+        featured: true,
+        pos: "center 18%",
+        caption: { zh: "非遗簪花国风造型", en: "Traditional Zanhua Floral Look" }
+      },
+      {
+        src: "assets/images/gallery/editorial-04.jpg",
+        category: "portrait",
+        featured: true,
+        pos: "center 30%",
+        caption: { zh: "民族风庭院光影", en: "Traditional Courtyard Portrait" }
+      },
+      {
+        src: "assets/images/gallery/editorial-08.jpg",
+        category: "portrait",
+        featured: true,
+        pos: "center 24%",
+        caption: { zh: "校园活力运动风", en: "Campus Sporty Editorial" }
+      },
+      {
+        src: "assets/images/gallery/live-01.jpg",
+        category: "live",
+        featured: true,
+        pos: "center top",
+        caption: { zh: "豆包 AI 官方直播讲解", en: "Doubao AI Official Live Hosting" }
+      },
+      {
+        src: "assets/images/gallery/live-02.jpg",
+        category: "live",
+        featured: true,
+        pos: "center top",
+        caption: { zh: "官方工具与商家专场直播", en: "Official Platform & SaaS Live Host" }
+      },
+      {
+        src: "assets/images/gallery/studio-02.jpg",
+        category: "portrait",
+        featured: false,
+        pos: "center 20%",
+        caption: { zh: "自然光棚拍形象照", en: "Soft Natural-Light Studio Portrait" }
+      },
+      {
+        src: "assets/images/gallery/editorial-06.jpg",
+        category: "portrait",
+        featured: false,
+        pos: "center 20%",
+        caption: { zh: "国风簪花特写", en: "Heritage Zanhua Close-Up" }
+      },
+      {
+        src: "assets/images/gallery/editorial-07.jpg",
+        category: "portrait",
+        featured: false,
+        pos: "center 22%",
+        caption: { zh: "传统庭院全景造型", en: "Courtyard Full-Length Look" }
+      },
+      {
+        src: "assets/images/gallery/editorial-09.jpg",
+        category: "portrait",
+        featured: false,
+        pos: "center 18%",
+        caption: { zh: "青春运动系外拍", en: "Athletic Style Shoot" }
+      },
+      {
+        src: "assets/images/gallery/live-03.jpg",
+        category: "live",
+        featured: false,
+        pos: "center top",
+        caption: { zh: "AI 产品功能实景演示", en: "AI Product Live Walkthrough" }
+      },
+      {
+        src: "assets/images/gallery/live-04.jpg",
+        category: "live",
+        featured: false,
+        pos: "center 18%",
+        caption: { zh: "轻熟通勤品牌直播", en: "Smart-Casual Brand Live Hosting" }
+      },
+      {
+        src: "assets/images/gallery/live-05.jpg",
+        category: "live",
+        featured: false,
+        pos: "center 18%",
+        caption: { zh: "法式穿搭专场直播", en: "Chic Fashion Live Showcase" }
+      },
+      {
+        src: "assets/images/gallery/live-06.jpg",
+        category: "live",
+        featured: false,
+        pos: "center 18%",
+        caption: { zh: "设计师品牌专场出镜", en: "Designer Apparel Live Showcase" }
+      },
+      {
+        src: "assets/images/gallery/live-07.jpg",
+        category: "live",
+        featured: false,
+        pos: "center 18%",
+        caption: { zh: "礼服与穿搭直播讲解", en: "Fashion & Dress Live Hosting" }
+      },
+      {
+        src: "assets/images/gallery/live-08.jpg",
+        category: "live",
+        featured: false,
+        pos: "center 18%",
+        caption: { zh: "秋冬时尚单品直播", en: "Autumn/Winter Apparel Live" }
+      },
+      {
+        src: "assets/images/gallery/live-09.jpg",
+        category: "live",
+        featured: false,
+        pos: "center 18%",
+        caption: { zh: "运动垂类品牌直播", en: "Sportswear Brand Live Hosting" }
       }
     ]
   },
