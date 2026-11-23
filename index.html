@@ -4,46 +4,62 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>陈卿雯 — 灵巧智能品牌负责人 / AI 硬科技公关传播</title>
-  <meta name="description" content="陈卿雯（Qingwen Chen）个人主页：10年+品牌公关、内容营销与大型项目传播经验，聚焦 AI 与具身智能硬科技品牌体系搭建与增长转化。" />
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23234572'/%3E%3Ctext x='50%25' y='54%25' text-anchor='middle' dominant-baseline='middle' font-family='PingFang SC,Helvetica,Arial,sans-serif' font-size='28' font-weight='bold' fill='%23ffffff'%3EQ%3C/text%3E%3C/svg%3E" />
-  <link rel="stylesheet" href="assets/css/main.css?v=4" />
+  <meta name="description" content="陈卿雯（Qingwen Chen）个人主页：灵巧智能（DexRobot）品牌负责人，10年+品牌公关、内容营销与大型项目传播经验，聚焦 AI 与具身智能硬科技品牌建设。" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23111111'/%3E%3Ctext x='50%25' y='54%25' text-anchor='middle' dominant-baseline='middle' font-family='Helvetica Neue,PingFang SC,Arial,sans-serif' font-size='28' font-weight='bold' fill='%23ffffff'%3EQ%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="assets/css/main.css?v=6" />
 </head>
 <body>
   <a class="skip-link" href="#main-content">跳转到正文 / Skip to content</a>
 
-  <!-- Sticky Top Navigation -->
+  <!-- Nike-Style Thin Utility Bar -->
+  <div class="utility-bar">
+    <div class="utility-bar__inner">
+      <span class="utility-bar__note" id="utility-note"></span>
+      <div class="utility-bar__actions">
+        <div class="lang-switch" role="group" aria-label="Language switcher">
+          <button type="button" class="lang-btn" data-lang="zh" aria-pressed="true">中文</button>
+          <span class="lang-divider" aria-hidden="true">|</span>
+          <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        <span class="utility-bar__sep" aria-hidden="true">|</span>
+        <a class="utility-bar__link" href="#contact" id="utility-contact"></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Nike-Style Sticky Main Header -->
   <header class="masthead" role="banner">
     <div class="masthead__inner">
       <a class="masthead__brand" href="#top" id="site-brand">陈卿雯</a>
       <nav class="masthead__nav" aria-label="Primary navigation">
         <ul class="nav-list" id="nav-list"></ul>
       </nav>
-      <div class="lang-switch" role="group" aria-label="Language switcher">
-        <button type="button" class="lang-btn" data-lang="zh" aria-pressed="true">中文</button>
-        <span class="lang-divider" aria-hidden="true">/</span>
-        <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+      <div class="masthead__right">
+        <a class="pill-btn pill-btn--dark pill-btn--sm" href="#contact" id="header-cta"></a>
       </div>
     </div>
+    <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
   </header>
 
-  <!-- Main Asymmetric Two-Column Layout -->
-  <div id="top" class="page-wrapper">
-    <aside class="sidebar" id="profile-sidebar" aria-label="Profile"></aside>
+  <!-- Main Full-Width Editorial Flow -->
+  <main id="main-content" tabindex="-1">
+    <section id="top" class="hero-section"></section>
+    <section id="about" class="band band--white"></section>
+    <section id="spotlight" class="band band--tight"></section>
+    <section id="gallery" class="band band--white"></section>
+    <section id="projects" class="band band--surface"></section>
+    <section id="capabilities" class="band band--white"></section>
+    <section id="experience" class="band band--surface"></section>
+    <section id="contact" class="band band--white"></section>
+  </main>
 
-    <main id="main-content" class="main-content" tabindex="-1">
-      <section id="about" class="content-section"></section>
-      <section id="projects" class="content-section"></section>
-      <section id="experience" class="content-section"></section>
-      <section id="capabilities" class="content-section"></section>
-      <section id="gallery" class="content-section"></section>
-      <section id="contact" class="content-section"></section>
-      <footer class="site-footer" id="site-footer"></footer>
-    </main>
-  </div>
+  <footer class="site-footer" id="site-footer"></footer>
 
   <div id="lightbox" class="lightbox" hidden role="dialog" aria-modal="true" aria-label="Image preview"></div>
 
-  <script src="assets/js/site-data.js?v=7"></script>
-  <script src="assets/js/app.js?v=2"></script>
+  <script src="assets/js/vendor/gsap.min.js"></script>
+  <script src="assets/js/vendor/ScrollTrigger.min.js"></script>
+  <script src="assets/js/site-data.js?v=8"></script>
+  <script src="assets/js/app.js?v=4"></script>
 </body>
 </html>

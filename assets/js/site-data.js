@@ -14,16 +14,70 @@ window.SITE_DATA = {
     },
     brand: {
       zh: "陈卿雯",
-      en: "Qingwen Chen"
+      en: "QINGWEN CHEN"
+    },
+    utilityNote: {
+      zh: "灵巧智能（DexRobot）品牌负责人 · 中国传媒大学 MBA",
+      en: "Head of Brand at DexRobot · MBA, Communication Univ. of China"
+    },
+    headerCta: {
+      zh: "联系合作",
+      en: "Get in Touch"
     }
   },
 
+  hero: {
+    primaryImage: "assets/images/avatar-lifestyle.jpg",
+    primaryAlt: {
+      zh: "陈卿雯个人形象照",
+      en: "Portrait of Qingwen Chen"
+    },
+    secondaryImage: "assets/images/gallery/editorial-02.jpg",
+    secondaryAlt: {
+      zh: "陈卿雯外景光影侧颜",
+      en: "Editorial portrait of Qingwen Chen"
+    },
+    eyebrow: {
+      zh: "DEXROBOT · 品牌负责人 · AI / 具身智能公关传播",
+      en: "DEXROBOT · HEAD OF BRAND · EMBODIED AI & DEEP-TECH PR"
+    },
+    headline: {
+      zh: "让硬科技被看见，让品牌成为增长引擎",
+      en: "DEEP TECH, TOLD BOLDLY."
+    },
+    subtitle: {
+      zh: "陈卿雯（Qingwen Chen）· 10 年+品牌公关、内容营销与大型项目传播经验，专注将前沿机器人与 AI 技术转化为可传播、可销售、可沉淀的品牌资产。",
+      en: "Qingwen Chen · 10+ years across brand PR, content marketing & flagship campaigns—turning frontier robotics and AI into measurable brand equity."
+    },
+    primaryCta: { zh: "查看代表项目", en: "Selected Projects" },
+    secondaryCta: { zh: "个人形象", en: "Visual Portfolio" }
+  },
+
+  spotlight: [
+    {
+      image: "assets/images/gallery/editorial-01.jpg",
+      pos: "center 22%",
+      eyebrow: { zh: "VISUAL PORTFOLIO · 多元形象", en: "VISUAL PORTFOLIO" },
+      title: { zh: "形象棚拍与高质感风格表达", en: "Studio Portraits & Editorial Looks" },
+      cta: { zh: "浏览写真集", en: "Explore Portraits" },
+      galleryFilter: "portrait"
+    },
+    {
+      image: "assets/images/gallery/live-01.jpg",
+      pos: "center top",
+      eyebrow: { zh: "AI LIVE HOSTING · 532H · 58.2% 转化", en: "AI LIVE HOSTING · 532 HRS · 58.2% CONV." },
+      title: { zh: "AI 产品官方直播与场景化叙事", en: "Official AI & Brand Live Commerce" },
+      cta: { zh: "查看直播实录", en: "View Live Showcase" },
+      galleryFilter: "live"
+    }
+  ],
+
   nav: [
     { id: "about", label: { zh: "关于我", en: "About" } },
-    { id: "projects", label: { zh: "代表项目", en: "Projects" } },
-    { id: "experience", label: { zh: "工作与教育", en: "Experience" } },
-    { id: "capabilities", label: { zh: "核心能力", en: "Capabilities" } },
     { id: "gallery", label: { zh: "个人形象", en: "Gallery" } },
+    { id: "projects", label: { zh: "代表项目", en: "Projects" } },
+    { id: "capabilities", label: { zh: "核心能力", en: "Capabilities" } },
+    { id: "experience", label: { zh: "工作与教育", en: "Experience" } },
     { id: "contact", label: { zh: "联系方式", en: "Contact" } }
   ],
 
@@ -259,9 +313,8 @@ window.SITE_DATA = {
         title: { zh: "工作经历", en: "Work Experience" },
         items: [
           {
-            monogram: "DX",
-            monogramBg: "#edf2f9",
-            monogramColor: "#234572",
+            logo: "assets/images/logo-dexrobot.png",
+            logoClass: "badge",
             active: true,
             org: { zh: "灵巧智能（DexRobot）", en: "DexRobot (Lingqiao Intelligence)" },
             orgTag: { zh: "具身智能 · 智能灵巧手", en: "Embodied AI · Dexterous Hand" },

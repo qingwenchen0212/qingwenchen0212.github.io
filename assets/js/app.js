@@ -1,5 +1,5 @@
 /**
- * Minimalist Bilingual Personal Homepage Runtime
+ * Nike-Inspired Bilingual Editorial Personal Homepage Runtime
  * Zero dependencies · Works via file:// or GitHub Pages
  */
 (function () {
@@ -7,19 +7,6 @@
 
   const data = window.SITE_DATA;
   if (!data) return;
-
-  const ICONS = {
-    location:
-      '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>',
-    briefcase:
-      '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>',
-    education:
-      '<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M12 3 1 9l11 6 9-4.91V17h2V9L12 3zm0 13.72L5.5 13.2v4.3c0 2.02 2.91 3.5 6.5 3.5s6.5-1.48 6.5-3.5v-4.3L12 16.72z"/></svg>',
-    email:
-      '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,6 12,13 2,6"/></svg>',
-    link:
-      '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>'
-  };
 
   const state = {
     lang: (data.meta && data.meta.defaultLang) || "zh",
@@ -53,26 +40,24 @@
       .replace(/'/g, "&#39;");
   }
 
-  function renderSectionHeading(title, sub) {
-    const subHtml = sub
-      ? `<span class="section-heading__sub" aria-hidden="true">${escapeHtml(sub)}</span>`
-      : "";
-    return `
-      <h1 class="section-heading">
-        <span class="section-heading__main">${escapeHtml(title)}</span>
-        ${subHtml}
-      </h1>`;
-  }
-
   /* ------------------------------------------------------------------------
-     1. Masthead & Language Switcher
+     1. Utility Bar & Sticky Main Header
      ------------------------------------------------------------------------ */
-  function renderMasthead() {
+  function renderHeader() {
     document.documentElement.lang = state.lang === "zh" ? "zh-CN" : "en";
     document.title = t(data.meta.title);
 
+    const utilityNote = document.getElementById("utility-note");
+    if (utilityNote) utilityNote.textContent = t(data.meta.utilityNote);
+
+    const utilityContact = document.getElementById("utility-contact");
+    if (utilityContact) utilityContact.textContent = t(data.meta.headerCta);
+
     const brandEl = document.getElementById("site-brand");
     if (brandEl) brandEl.textContent = t(data.meta.brand);
+
+    const headerCta = document.getElementById("header-cta");
+    if (headerCta) headerCta.textContent = t(data.meta.headerCta);
 
     const navList = document.getElementById("nav-list");
     if (navList) {
@@ -90,54 +75,39 @@
   }
 
   /* ------------------------------------------------------------------------
-     2. Sticky Left Profile Sidebar
+     2. Nike Full-Bleed Dual Photographic Hero
      ------------------------------------------------------------------------ */
-  function renderSidebar() {
-    const sidebar = document.getElementById("profile-sidebar");
-    if (!sidebar) return;
+  function renderHero() {
+    const el = document.getElementById("top");
+    if (!el || !data.hero) return;
+    const h = data.hero;
 
-    const linksHtml = (data.profile.links || [])
-      .map((link) => {
-        const iconSvg = ICONS[link.icon] || ICONS.link;
-        const label = escapeHtml(t(link.label));
-        if (!link.url) {
-          return `
-            <li class="author__url-item">
-              <span class="author__url-icon">${iconSvg}</span>
-              <span>${label}</span>
-            </li>`;
-        }
-        const isExternal = /^https?:\/\//i.test(link.url);
-        const targetAttrs = isExternal ? ' target="_blank" rel="noopener"' : "";
-        return `
-          <li class="author__url-item">
-            <a class="author__url-link" href="${escapeHtml(link.url)}"${targetAttrs}>
-              <span class="author__url-icon">${iconSvg}</span>
-              <span>${label}</span>
-            </a>
-          </li>`;
-      })
-      .join("");
-
-    const subnameHtml = t(data.profile.subname)
-      ? `<p class="author__subname">${escapeHtml(t(data.profile.subname))}</p>`
-      : "";
-
-    sidebar.innerHTML = `
-      <div class="author__avatar-wrap">
-        <img class="author__avatar" src="${escapeHtml(data.profile.avatar)}" alt="${escapeHtml(t(data.profile.avatarAlt))}" />
-      </div>
-      <div class="author__identity">
-        <h2 class="author__name">${escapeHtml(t(data.profile.name))}</h2>
-        ${subnameHtml}
-        <p class="author__bio">${escapeHtml(t(data.profile.bio))}</p>
-        <ul class="author__urls">${linksHtml}</ul>
+    el.innerHTML = `
+      <div class="hero-stage">
+        <div class="hero-stage__pane">
+          <img class="hero-stage__img" src="${escapeHtml(h.primaryImage)}" alt="${escapeHtml(t(h.primaryAlt))}" style="object-position: center 22%;" />
+        </div>
+        <div class="hero-stage__pane hero-stage__pane--secondary">
+          <img class="hero-stage__img" src="${escapeHtml(h.secondaryImage)}" alt="${escapeHtml(t(h.secondaryAlt))}" style="object-position: center 22%;" />
+        </div>
+        <div class="hero-stage__scrim" aria-hidden="true"></div>
+        <div class="hero-overlay">
+          <div class="hero-overlay__content">
+            <p class="hero-eyebrow">${escapeHtml(t(h.eyebrow))}</p>
+            <h1 class="hero-title">${escapeHtml(t(h.headline))}</h1>
+            <p class="hero-subtitle">${escapeHtml(t(h.subtitle))}</p>
+            <div class="hero-actions">
+              <a class="pill-btn pill-btn--light" href="#projects">${escapeHtml(t(h.primaryCta))}</a>
+              <a class="pill-btn pill-btn--ghost-light" href="#gallery">${escapeHtml(t(h.secondaryCta))}</a>
+            </div>
+          </div>
+        </div>
       </div>
     `;
   }
 
   /* ------------------------------------------------------------------------
-     3. About Me + Metrics + Core Strengths
+     3. Nike Centered Manifesto + Impact Metrics (#about)
      ------------------------------------------------------------------------ */
   function renderAbout() {
     const el = document.getElementById("about");
@@ -157,175 +127,73 @@
       )
       .join("");
 
-    const strengthsHtml = (data.about.strengths || [])
+    const metaTags = (data.profile.links || [])
+      .slice(0, 3)
+      .map((l) => `<span>${escapeHtml(t(l.label))}</span>`)
+      .join("");
+
+    const headline =
+      state.lang === "zh"
+        ? "把复杂技术转化为可传播、可销售、可沉淀的品牌资产"
+        : "Translating Complex Technology Into Compounding Brand Equity";
+
+    el.innerHTML = `
+      <div class="container">
+        <div class="manifesto">
+          <p class="manifesto__eyebrow">${escapeHtml(t(data.about.sub))} · ${escapeHtml(t(data.about.heading))}</p>
+          <h2 class="manifesto__headline">${escapeHtml(headline)}</h2>
+          <div class="manifesto__body">${paragraphs}</div>
+          <div class="manifesto__meta">${metaTags}</div>
+        </div>
+        <div class="metrics-grid">${metricsHtml}</div>
+      </div>
+    `;
+  }
+
+  /* ------------------------------------------------------------------------
+     4. Nike 50/50 Dual Visual Campaign Tiles (#spotlight)
+     ------------------------------------------------------------------------ */
+  function renderSpotlight() {
+    const el = document.getElementById("spotlight");
+    if (!el || !data.spotlight) return;
+
+    const tilesHtml = data.spotlight
       .map(
-        (s) => `
-        <article class="strength-card">
-          <div class="strength-card__head">
-            <span class="strength-card__index">${escapeHtml(s.index)}</span>
-            <h3 class="strength-card__title">${escapeHtml(t(s.title))}</h3>
+        (tile) => `
+        <article class="spotlight-tile">
+          <img class="spotlight-tile__img" src="${escapeHtml(tile.image)}" alt="${escapeHtml(t(tile.title))}" style="object-position:${escapeHtml(tile.pos || "center 20%")}" />
+          <div class="spotlight-tile__scrim" aria-hidden="true"></div>
+          <div class="spotlight-tile__content">
+            <p class="spotlight-tile__eyebrow">${escapeHtml(t(tile.eyebrow))}</p>
+            <h3 class="spotlight-tile__title">${escapeHtml(t(tile.title))}</h3>
+            <button type="button" class="pill-btn pill-btn--light pill-btn--sm spotlight-cta" data-gallery-target="${escapeHtml(tile.galleryFilter)}">
+              ${escapeHtml(t(tile.cta))}
+            </button>
           </div>
-          <p class="strength-card__desc">${escapeHtml(t(s.desc))}</p>
         </article>`
       )
       .join("");
 
     el.innerHTML = `
-      ${renderSectionHeading(t(data.about.heading), t(data.about.sub))}
-      <div class="section-prose">${paragraphs}</div>
-      <div class="metrics-grid">${metricsHtml}</div>
-      <h2 class="subsection-title">${escapeHtml(t(data.about.strengthsTitle))}</h2>
-      <div class="strengths-grid">${strengthsHtml}</div>
-    `;
-  }
-
-  /* ------------------------------------------------------------------------
-     4. Selected Projects / Case Studies
-     ------------------------------------------------------------------------ */
-  function renderProjects() {
-    const el = document.getElementById("projects");
-    if (!el) return;
-
-    const filtersHtml = (data.projects.filters || [])
-      .map((f) => {
-        const active = state.projectFilter === f.id;
-        return `<button type="button" class="filter-pill" data-filter="${escapeHtml(f.id)}" aria-pressed="${active}">${escapeHtml(t(f.label))}</button>`;
-      })
-      .join("");
-
-    const items = (data.projects.items || []).filter(
-      (item) => state.projectFilter === "all" || item.category === state.projectFilter
-    );
-
-    const cardsHtml = items
-      .map((proj) => {
-        const kpis = listOf(proj.kpis)
-          .map((k) => `<span class="kpi-pill">${escapeHtml(k)}</span>`)
-          .join("");
-
-        return `
-          <article class="case-card">
-            <div class="case-card__top">
-              <div class="case-card__title-group">
-                <span class="case-badge">${escapeHtml(t(proj.badge))}</span>
-                <h2 class="case-title">${escapeHtml(t(proj.title))}</h2>
-              </div>
-              <span class="case-role">${escapeHtml(t(proj.role))}</span>
-            </div>
-            <p class="case-summary">${escapeHtml(t(proj.summary))}</p>
-            <div class="case-kpis">${kpis}</div>
-          </article>
-        `;
-      })
-      .join("");
-
-    el.innerHTML = `
-      ${renderSectionHeading(t(data.projects.heading), t(data.projects.sub))}
-      <div class="filter-bar" role="group" aria-label="${escapeHtml(t(data.projects.heading))}">
-        ${filtersHtml}
+      <div class="container">
+        <div class="spotlight-grid">${tilesHtml}</div>
       </div>
-      <div class="case-list">${cardsHtml}</div>
     `;
 
-    el.querySelectorAll(".filter-pill").forEach((btn) => {
+    el.querySelectorAll(".spotlight-cta").forEach((btn) => {
       btn.addEventListener("click", () => {
-        state.projectFilter = btn.dataset.filter;
-        renderProjects();
+        state.galleryFilter = btn.dataset.galleryTarget || "featured";
+        state.lightboxIndex = -1;
+        renderGallery();
+        renderLightbox();
+        const target = document.getElementById("gallery");
+        if (target) target.scrollIntoView({ behavior: "smooth" });
       });
     });
   }
 
   /* ------------------------------------------------------------------------
-     5. Experience & Education 3-Column Timeline
-     ------------------------------------------------------------------------ */
-  function renderExperience() {
-    const el = document.getElementById("experience");
-    if (!el) return;
-
-    const groupsHtml = (data.experience.groups || [])
-      .map((group) => {
-        const rowsHtml = (group.items || [])
-          .map((item) => {
-            const dotModifier = item.active ? " timeline-dot--active" : "";
-            const logoCellHtml = item.logo
-              ? `<img class="timeline-logo${item.logoClass ? ` timeline-logo--${escapeHtml(item.logoClass)}` : ""}" src="${escapeHtml(item.logo)}" alt="${escapeHtml(t(item.org))} logo" />`
-              : `<span class="timeline-monogram" style="background:${escapeHtml(item.monogramBg || "#f4f6f9")};color:${escapeHtml(item.monogramColor || "#234572")}" aria-hidden="true">${escapeHtml(item.monogram || "")}</span>`;
-
-            const orgTagHtml = t(item.orgTag)
-              ? `<span class="timeline-org-tag">${escapeHtml(t(item.orgTag))}</span>`
-              : "";
-
-            const bullets = listOf(item.bullets);
-            const bulletsHtml = bullets.length
-              ? `<ul class="timeline-bullets">${bullets.map((b) => `<li>${escapeHtml(b)}</li>`).join("")}</ul>`
-              : "";
-
-            return `
-              <li class="timeline-item">
-                <div class="timeline-logo-cell">${logoCellHtml}</div>
-                <div class="timeline-rail" aria-hidden="true">
-                  <span class="timeline-dot${dotModifier}"></span>
-                </div>
-                <div class="timeline-body">
-                  <div class="timeline-header">
-                    <div class="timeline-org-wrap">
-                      <h3 class="timeline-org">${escapeHtml(t(item.org))}</h3>
-                      ${orgTagHtml}
-                    </div>
-                    <time class="timeline-time">${escapeHtml(t(item.period))}</time>
-                  </div>
-                  <p class="timeline-role">${escapeHtml(t(item.role))}</p>
-                  ${bulletsHtml}
-                </div>
-              </li>
-            `;
-          })
-          .join("");
-
-        return `
-          <div class="timeline-group" id="${escapeHtml(group.id || "")}">
-            <h2 class="timeline-group__title">${escapeHtml(t(group.title))}</h2>
-            <ol class="experience-timeline">${rowsHtml}</ol>
-          </div>
-        `;
-      })
-      .join("");
-
-    el.innerHTML = `
-      ${renderSectionHeading(t(data.experience.heading), t(data.experience.sub))}
-      ${groupsHtml}
-    `;
-  }
-
-  /* ------------------------------------------------------------------------
-     6. Core Capabilities
-     ------------------------------------------------------------------------ */
-  function renderCapabilities() {
-    const el = document.getElementById("capabilities");
-    if (!el) return;
-
-    const groupsHtml = (data.capabilities.groups || [])
-      .map((g) => {
-        const tagsHtml = listOf(g.tags)
-          .map((tag) => `<span class="cap-tag">${escapeHtml(tag)}</span>`)
-          .join("");
-        return `
-          <div class="cap-group">
-            <h2 class="cap-group__title">${escapeHtml(t(g.title))}</h2>
-            <div class="cap-tags">${tagsHtml}</div>
-          </div>
-        `;
-      })
-      .join("");
-
-    el.innerHTML = `
-      ${renderSectionHeading(t(data.capabilities.heading), t(data.capabilities.sub))}
-      <div class="cap-groups">${groupsHtml}</div>
-    `;
-  }
-
-  /* ------------------------------------------------------------------------
-     6b. Personal Image / Visual Portfolio Gallery + Lightbox
+     5. Personal Image Carousel & Grid (#gallery)
      ------------------------------------------------------------------------ */
   function getFilteredGalleryItems() {
     const items = (data.gallery && data.gallery.items) || [];
@@ -338,12 +206,22 @@
     const el = document.getElementById("gallery");
     if (!el || !data.gallery) return;
 
+    const isCarousel = state.galleryFilter === "featured";
+
     const filtersHtml = (data.gallery.filters || [])
       .map((f) => {
         const active = state.galleryFilter === f.id;
         return `<button type="button" class="filter-pill gallery-filter-pill" data-filter="${escapeHtml(f.id)}" aria-pressed="${active}">${escapeHtml(t(f.label))}</button>`;
       })
       .join("");
+
+    const arrowsHtml = isCarousel
+      ? `
+        <div class="carousel-arrows">
+          <button type="button" class="carousel-btn" id="gal-prev" aria-label="${state.lang === "zh" ? "向左滚动" : "Scroll left"}">&#8249;</button>
+          <button type="button" class="carousel-btn" id="gal-next" aria-label="${state.lang === "zh" ? "向右滚动" : "Scroll right"}">&#8250;</button>
+        </div>`
+      : "";
 
     const items = getFilteredGalleryItems();
     const cardsHtml = items
@@ -361,13 +239,25 @@
       })
       .join("");
 
+    const containerClass = isCarousel ? "gallery-track" : "gallery-grid";
+
     el.innerHTML = `
-      ${renderSectionHeading(t(data.gallery.heading), t(data.gallery.sub))}
-      <p class="gallery-intro">${escapeHtml(t(data.gallery.intro))}</p>
-      <div class="filter-bar" role="group" aria-label="${escapeHtml(t(data.gallery.heading))}">
-        ${filtersHtml}
+      <div class="container">
+        <div class="section-bar">
+          <div>
+            <p class="section-bar__eyebrow">${escapeHtml(t(data.gallery.sub))}</p>
+            <h2 class="section-bar__title">${escapeHtml(t(data.gallery.heading))}</h2>
+          </div>
+          <div class="section-bar__controls">
+            <div class="filter-bar" role="group" aria-label="${escapeHtml(t(data.gallery.heading))}">
+              ${filtersHtml}
+            </div>
+            ${arrowsHtml}
+          </div>
+        </div>
+        <p class="gallery-intro">${escapeHtml(t(data.gallery.intro))}</p>
+        <div class="${containerClass}" id="gallery-viewport">${cardsHtml}</div>
       </div>
-      <div class="gallery-grid">${cardsHtml}</div>
     `;
 
     el.querySelectorAll(".gallery-filter-pill").forEach((btn) => {
@@ -376,6 +266,7 @@
         state.lightboxIndex = -1;
         renderGallery();
         renderLightbox();
+        animateFilterItems("#gallery .gallery-card");
       });
     });
 
@@ -385,6 +276,21 @@
         renderLightbox();
       });
     });
+
+    if (isCarousel) {
+      const track = document.getElementById("gallery-viewport");
+      const prevBtn = document.getElementById("gal-prev");
+      const nextBtn = document.getElementById("gal-next");
+      if (track && prevBtn && nextBtn) {
+        const step = () => Math.max(300, Math.round(track.clientWidth * 0.72));
+        prevBtn.addEventListener("click", () => {
+          track.scrollBy({ left: -step(), behavior: "smooth" });
+        });
+        nextBtn.addEventListener("click", () => {
+          track.scrollBy({ left: step(), behavior: "smooth" });
+        });
+      }
+    }
   }
 
   function renderLightbox() {
@@ -420,19 +326,15 @@
       <button type="button" class="lightbox__nav lightbox__nav--next" id="lb-next" aria-label="${escapeHtml(nextLabel)}">&#8250;</button>
     `;
 
-    const closeBtn = document.getElementById("lb-close");
-    const prevBtn = document.getElementById("lb-prev");
-    const nextBtn = document.getElementById("lb-next");
-
-    closeBtn.addEventListener("click", () => {
+    document.getElementById("lb-close").addEventListener("click", () => {
       state.lightboxIndex = -1;
       renderLightbox();
     });
-    prevBtn.addEventListener("click", () => {
+    document.getElementById("lb-prev").addEventListener("click", () => {
       state.lightboxIndex = (state.lightboxIndex - 1 + items.length) % items.length;
       renderLightbox();
     });
-    nextBtn.addEventListener("click", () => {
+    document.getElementById("lb-next").addEventListener("click", () => {
       state.lightboxIndex = (state.lightboxIndex + 1) % items.length;
       renderLightbox();
     });
@@ -464,7 +366,183 @@
   }
 
   /* ------------------------------------------------------------------------
-     7. Contact Section (Anti-scraper Email Reveal + Copy + Formspree Form)
+     6. Selected Projects (#projects)
+     ------------------------------------------------------------------------ */
+  function renderProjects() {
+    const el = document.getElementById("projects");
+    if (!el) return;
+
+    const filtersHtml = (data.projects.filters || [])
+      .map((f) => {
+        const active = state.projectFilter === f.id;
+        return `<button type="button" class="filter-pill proj-filter-pill" data-filter="${escapeHtml(f.id)}" aria-pressed="${active}">${escapeHtml(t(f.label))}</button>`;
+      })
+      .join("");
+
+    const items = (data.projects.items || []).filter(
+      (item) => state.projectFilter === "all" || item.category === state.projectFilter
+    );
+
+    const cardsHtml = items
+      .map((proj, idx) => {
+        const featuredClass = items.length % 2 === 1 && idx === 0 ? " case-card--featured" : "";
+        const kpis = listOf(proj.kpis)
+          .map((k) => `<span class="kpi-pill">${escapeHtml(k)}</span>`)
+          .join("");
+
+        return `
+          <article class="case-card${featuredClass}">
+            <div>
+              <div class="case-card__meta">
+                <span class="case-badge">${escapeHtml(t(proj.badge))}</span>
+                <span class="case-role">${escapeHtml(t(proj.role))}</span>
+              </div>
+              <h3 class="case-title">${escapeHtml(t(proj.title))}</h3>
+              <p class="case-summary">${escapeHtml(t(proj.summary))}</p>
+            </div>
+            <div class="case-kpis">${kpis}</div>
+          </article>
+        `;
+      })
+      .join("");
+
+    el.innerHTML = `
+      <div class="container">
+        <div class="section-bar">
+          <div>
+            <p class="section-bar__eyebrow">${escapeHtml(t(data.projects.sub))}</p>
+            <h2 class="section-bar__title">${escapeHtml(t(data.projects.heading))}</h2>
+          </div>
+          <div class="filter-bar" role="group" aria-label="${escapeHtml(t(data.projects.heading))}">
+            ${filtersHtml}
+          </div>
+        </div>
+        <div class="case-grid">${cardsHtml}</div>
+      </div>
+    `;
+
+    el.querySelectorAll(".proj-filter-pill").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        state.projectFilter = btn.dataset.filter;
+        renderProjects();
+        animateFilterItems("#projects .case-card");
+      });
+    });
+  }
+
+  /* ------------------------------------------------------------------------
+     7. Core Strengths & Capabilities (#capabilities)
+     ------------------------------------------------------------------------ */
+  function renderCapabilities() {
+    const el = document.getElementById("capabilities");
+    if (!el) return;
+
+    const strengthsHtml = (data.about.strengths || [])
+      .map(
+        (s) => `
+        <article class="strength-card">
+          <span class="strength-card__index">${escapeHtml(s.index)}</span>
+          <h3 class="strength-card__title">${escapeHtml(t(s.title))}</h3>
+          <p class="strength-card__desc">${escapeHtml(t(s.desc))}</p>
+        </article>`
+      )
+      .join("");
+
+    const groupsHtml = (data.capabilities.groups || [])
+      .map((g) => {
+        const tagsHtml = listOf(g.tags)
+          .map((tag) => `<span class="cap-tag">${escapeHtml(tag)}</span>`)
+          .join("");
+        return `
+          <div class="cap-group">
+            <h3 class="cap-group__title">${escapeHtml(t(g.title))}</h3>
+            <div class="cap-tags">${tagsHtml}</div>
+          </div>
+        `;
+      })
+      .join("");
+
+    el.innerHTML = `
+      <div class="container">
+        <div class="section-bar">
+          <div>
+            <p class="section-bar__eyebrow">${escapeHtml(t(data.capabilities.sub))}</p>
+            <h2 class="section-bar__title">${escapeHtml(t(data.about.strengthsTitle))} &amp; ${escapeHtml(t(data.capabilities.heading))}</h2>
+          </div>
+        </div>
+        <div class="strengths-grid">${strengthsHtml}</div>
+        <div class="cap-groups">${groupsHtml}</div>
+      </div>
+    `;
+  }
+
+  /* ------------------------------------------------------------------------
+     8. Experience & Education Roster (#experience)
+     ------------------------------------------------------------------------ */
+  function renderExperience() {
+    const el = document.getElementById("experience");
+    if (!el) return;
+
+    const groupsHtml = (data.experience.groups || [])
+      .map((group) => {
+        const rowsHtml = (group.items || [])
+          .map((item) => {
+            const logoCellHtml = item.logo
+              ? `<img class="career-logo${item.logoClass ? ` career-logo--${escapeHtml(item.logoClass)}` : ""}" src="${escapeHtml(item.logo)}" alt="${escapeHtml(t(item.org))} logo" />`
+              : `<span class="career-monogram" aria-hidden="true">${escapeHtml(item.monogram || "")}</span>`;
+
+            const orgTagHtml = t(item.orgTag)
+              ? `<span class="career-tag${item.active ? " career-tag--active" : ""}">${escapeHtml(t(item.orgTag))}</span>`
+              : "";
+
+            const bullets = listOf(item.bullets);
+            const bulletsHtml = bullets.length
+              ? `<ul class="career-bullets">${bullets.map((b) => `<li>${escapeHtml(b)}</li>`).join("")}</ul>`
+              : "";
+
+            return `
+              <li class="career-row">
+                <div class="career-logo-cell">${logoCellHtml}</div>
+                <div class="career-body">
+                  <div class="career-header">
+                    <div class="career-org-wrap">
+                      <h4 class="career-org">${escapeHtml(t(item.org))}</h4>
+                      ${orgTagHtml}
+                    </div>
+                    <time class="career-time">${escapeHtml(t(item.period))}</time>
+                  </div>
+                  <p class="career-role">${escapeHtml(t(item.role))}</p>
+                  ${bulletsHtml}
+                </div>
+              </li>
+            `;
+          })
+          .join("");
+
+        return `
+          <div class="career-group" id="${escapeHtml(group.id || "")}">
+            <h3 class="career-group__title">${escapeHtml(t(group.title))}</h3>
+            <ol class="career-list">${rowsHtml}</ol>
+          </div>
+        `;
+      })
+      .join("");
+
+    el.innerHTML = `
+      <div class="container">
+        <div class="section-bar">
+          <div>
+            <p class="section-bar__eyebrow">${escapeHtml(t(data.experience.sub))}</p>
+            <h2 class="section-bar__title">${escapeHtml(t(data.experience.heading))}</h2>
+          </div>
+        </div>
+        ${groupsHtml}
+      </div>
+    `;
+  }
+
+  /* ------------------------------------------------------------------------
+     9. Contact Band (#contact)
      ------------------------------------------------------------------------ */
   function renderContact() {
     const el = document.getElementById("contact");
@@ -474,59 +552,63 @@
     const emailAddress = `${data.contact.emailUser}@${data.contact.emailDomain}`;
 
     el.innerHTML = `
-      ${renderSectionHeading(t(data.contact.heading), t(data.contact.sub))}
-      <p class="contact-intro">${escapeHtml(t(data.contact.intro))}</p>
-      <div class="contact-actions">
-        <button
-          type="button"
-          class="btn-outline"
-          id="toggle-email-btn"
-          aria-expanded="${state.emailVisible}"
-          aria-controls="email-reveal-box"
-        >${escapeHtml(state.emailVisible ? t(ui.hideEmail) : t(ui.showEmail))}</button>
-        <button
-          type="button"
-          class="btn-outline"
-          id="toggle-message-btn"
-          aria-expanded="${state.messageOpen}"
-          aria-controls="message-form-panel"
-        >${escapeHtml(state.messageOpen ? t(ui.closeMessage) : t(ui.leaveMessage))}</button>
-      </div>
+      <div class="container">
+        <div class="contact-box">
+          <p class="contact-box__eyebrow">${escapeHtml(t(data.contact.sub))}</p>
+          <h2 class="contact-box__title">${escapeHtml(t(data.contact.heading))}</h2>
+          <p class="contact-intro">${escapeHtml(t(data.contact.intro))}</p>
+          <div class="contact-actions">
+            <button
+              type="button"
+              class="pill-btn pill-btn--dark"
+              id="toggle-email-btn"
+              aria-expanded="${state.emailVisible}"
+              aria-controls="email-reveal-box"
+            >${escapeHtml(state.emailVisible ? t(ui.hideEmail) : t(ui.showEmail))}</button>
+            <button
+              type="button"
+              class="pill-btn pill-btn--outline"
+              id="toggle-message-btn"
+              aria-expanded="${state.messageOpen}"
+              aria-controls="message-form-panel"
+            >${escapeHtml(state.messageOpen ? t(ui.closeMessage) : t(ui.leaveMessage))}</button>
+          </div>
 
-      <div id="email-reveal-box" class="email-reveal" ${state.emailVisible ? "" : "hidden"}>
-        <a class="email-reveal__address" id="revealed-email-link" href="${state.emailVisible ? `mailto:${escapeHtml(emailAddress)}` : "#"}">
-          ${state.emailVisible ? escapeHtml(emailAddress) : ""}
-        </a>
-        <button type="button" class="btn-outline btn-outline--small" id="copy-email-btn">
-          ${escapeHtml(t(ui.copy))}
-        </button>
-        <span class="copy-feedback" id="copy-feedback" aria-live="polite"></span>
-      </div>
+          <div id="email-reveal-box" class="email-reveal" ${state.emailVisible ? "" : "hidden"}>
+            <a class="email-reveal__address" id="revealed-email-link" href="${state.emailVisible ? `mailto:${escapeHtml(emailAddress)}` : "#"}">
+              ${state.emailVisible ? escapeHtml(emailAddress) : ""}
+            </a>
+            <button type="button" class="pill-btn pill-btn--outline pill-btn--sm" id="copy-email-btn">
+              ${escapeHtml(t(ui.copy))}
+            </button>
+            <span class="copy-feedback" id="copy-feedback" aria-live="polite"></span>
+          </div>
 
-      <div id="message-form-panel" class="message-panel" ${state.messageOpen ? "" : "hidden"}>
-        <form id="contact-message-form" novalidate>
-          <div class="form-field">
-            <label class="form-label" for="msg-name">${escapeHtml(t(ui.nameLabel))}</label>
-            <input class="form-input" id="msg-name" name="name" type="text" value="${escapeHtml(t(ui.nameDefault))}" />
+          <div id="message-form-panel" class="message-panel" ${state.messageOpen ? "" : "hidden"}>
+            <form id="contact-message-form" novalidate>
+              <div class="form-field">
+                <label class="form-label" for="msg-name">${escapeHtml(t(ui.nameLabel))}</label>
+                <input class="form-input" id="msg-name" name="name" type="text" value="${escapeHtml(t(ui.nameDefault))}" />
+              </div>
+              <div class="form-field">
+                <label class="form-label" for="msg-email">${escapeHtml(t(ui.emailLabel))}</label>
+                <input class="form-input" id="msg-email" name="email" type="email" placeholder="${escapeHtml(t(ui.emailPlaceholder))}" />
+              </div>
+              <div class="form-field">
+                <label class="form-label" for="msg-body">${escapeHtml(t(ui.messageLabel))}</label>
+                <textarea class="form-textarea" id="msg-body" name="message" required placeholder="${escapeHtml(t(ui.messagePlaceholder))}"></textarea>
+              </div>
+              <div class="form-footer">
+                <button type="submit" class="pill-btn pill-btn--dark pill-btn--sm" id="msg-submit-btn">${escapeHtml(t(ui.sendButton))}</button>
+                <p class="form-status" id="msg-status" aria-live="polite"></p>
+              </div>
+            </form>
           </div>
-          <div class="form-field">
-            <label class="form-label" for="msg-email">${escapeHtml(t(ui.emailLabel))}</label>
-            <input class="form-input" id="msg-email" name="email" type="email" placeholder="${escapeHtml(t(ui.emailPlaceholder))}" />
-          </div>
-          <div class="form-field">
-            <label class="form-label" for="msg-body">${escapeHtml(t(ui.messageLabel))}</label>
-            <textarea class="form-textarea" id="msg-body" name="message" required placeholder="${escapeHtml(t(ui.messagePlaceholder))}"></textarea>
-          </div>
-          <div class="form-footer">
-            <button type="submit" class="btn-outline" id="msg-submit-btn">${escapeHtml(t(ui.sendButton))}</button>
-            <p class="form-status" id="msg-status" aria-live="polite"></p>
-          </div>
-        </form>
+        </div>
       </div>
     `;
 
-    const toggleEmailBtn = document.getElementById("toggle-email-btn");
-    toggleEmailBtn.addEventListener("click", () => {
+    document.getElementById("toggle-email-btn").addEventListener("click", () => {
       state.emailVisible = !state.emailVisible;
       renderContact();
     });
@@ -543,8 +625,7 @@
       });
     });
 
-    const toggleMsgBtn = document.getElementById("toggle-message-btn");
-    toggleMsgBtn.addEventListener("click", () => {
+    document.getElementById("toggle-message-btn").addEventListener("click", () => {
       state.messageOpen = !state.messageOpen;
       renderContact();
       if (state.messageOpen) {
@@ -603,10 +684,34 @@
     });
   }
 
+  /* ------------------------------------------------------------------------
+     10. High-Contrast Dark Footer
+     ------------------------------------------------------------------------ */
   function renderFooter() {
     const el = document.getElementById("site-footer");
     if (!el) return;
-    el.innerHTML = `<span>${escapeHtml(t(data.footer))}</span>`;
+
+    const navHtml = data.nav
+      .map((item) => `<li><a href="#${escapeHtml(item.id)}">${escapeHtml(t(item.label))}</a></li>`)
+      .join("");
+
+    const backToTop = state.lang === "zh" ? "返回顶部 ↑" : "Back to Top ↑";
+
+    el.innerHTML = `
+      <div class="footer-inner">
+        <div class="footer-top">
+          <div>
+            <p class="footer-brand">${escapeHtml(t(data.profile.name))}</p>
+            <p class="footer-desc">${escapeHtml(t(data.profile.bio))}</p>
+          </div>
+          <ul class="footer-links">${navHtml}</ul>
+        </div>
+        <div class="footer-bottom">
+          <span>${escapeHtml(t(data.footer))}</span>
+          <a href="#top" style="color: var(--text-on-dark-muted);">${escapeHtml(backToTop)}</a>
+        </div>
+      </div>
+    `;
   }
 
   function copyTextToClipboard(text) {
@@ -635,9 +740,6 @@
     }
   }
 
-  /* ------------------------------------------------------------------------
-     Scroll-Spy for Active Nav Link
-     ------------------------------------------------------------------------ */
   function setupScrollSpy() {
     if (typeof IntersectionObserver === "undefined") return;
     const sections = data.nav
@@ -665,9 +767,6 @@
     sections.forEach((sec) => observer.observe(sec));
   }
 
-  /* ------------------------------------------------------------------------
-     Language Switcher Binding & Initial Render
-     ------------------------------------------------------------------------ */
   function bindLanguageSwitch() {
     document.querySelectorAll(".lang-btn").forEach((btn) => {
       btn.addEventListener("click", () => {
@@ -679,17 +778,140 @@
     });
   }
 
+  let gsapCtx = null;
+  let initialMotionDone = false;
+
+  function prefersReducedMotion() {
+    return (
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    );
+  }
+
+  function setupGsapMotion() {
+    if (!window.gsap || prefersReducedMotion()) return;
+    const gsap = window.gsap;
+    const ScrollTrigger = window.ScrollTrigger;
+    if (ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
+
+    if (gsapCtx) {
+      gsapCtx.revert();
+      gsapCtx = null;
+    }
+
+    gsapCtx = gsap.context(() => {
+      // 1. Reading progress hairline pinned to sticky header
+      if (ScrollTrigger) {
+        gsap.to("#scroll-progress", {
+          scaleX: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: document.documentElement,
+            start: "top top",
+            end: "bottom bottom",
+            scrub: 0.15
+          }
+        });
+
+        // 2. Subtle editorial hero image parallax on scroll
+        gsap.to(".hero-stage__img", {
+          yPercent: 9,
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".hero-section",
+            start: "top top",
+            end: "bottom top",
+            scrub: true
+          }
+        });
+      }
+
+      // Run entrance reveals on initial load only (language switches stay instant & crisp)
+      if (!initialMotionDone) {
+        initialMotionDone = true;
+
+        const heroTl = gsap.timeline({ defaults: { ease: "power3.out" } });
+        heroTl
+          .from(".hero-stage__img", {
+            scale: 1.07,
+            duration: 1.25,
+            clearProps: "scale"
+          })
+          .from(
+            [".hero-eyebrow", ".hero-title", ".hero-subtitle", ".hero-actions"],
+            {
+              y: 26,
+              opacity: 0,
+              duration: 0.72,
+              stagger: 0.09,
+              clearProps: "transform,opacity"
+            },
+            0.12
+          );
+
+        if (ScrollTrigger) {
+          const revealGroup = (triggerSelector, targetsSelector, staggerVal) => {
+            const triggerEl = document.querySelector(triggerSelector);
+            const targetEls = document.querySelectorAll(targetsSelector);
+            if (!triggerEl || !targetEls.length) return;
+            gsap.from(targetEls, {
+              y: 24,
+              opacity: 0,
+              duration: 0.65,
+              stagger: staggerVal,
+              ease: "power2.out",
+              clearProps: "transform,opacity",
+              scrollTrigger: {
+                trigger: triggerEl,
+                start: "top 86%",
+                once: true
+              }
+            });
+          };
+
+          revealGroup("#about", "#about .manifesto > *, #about .metric-card", 0.07);
+          revealGroup("#spotlight", "#spotlight .spotlight-tile", 0.12);
+          revealGroup("#gallery", "#gallery .gallery-card", 0.05);
+          revealGroup("#projects", "#projects .case-card", 0.08);
+          revealGroup("#capabilities", "#capabilities .strength-card, #capabilities .cap-group", 0.07);
+          revealGroup("#experience", "#experience .career-row", 0.07);
+          revealGroup("#contact", "#contact .contact-box", 0.08);
+        }
+      }
+    });
+
+    if (ScrollTrigger) ScrollTrigger.refresh();
+  }
+
+  function animateFilterItems(selector) {
+    if (!window.gsap || prefersReducedMotion()) return;
+    window.gsap.fromTo(
+      selector,
+      { y: 14, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.42,
+        stagger: 0.04,
+        ease: "power2.out",
+        clearProps: "transform,opacity"
+      }
+    );
+  }
+
   function renderAll() {
-    renderMasthead();
-    renderSidebar();
+    renderHeader();
+    renderHero();
     renderAbout();
-    renderProjects();
-    renderExperience();
-    renderCapabilities();
+    renderSpotlight();
     renderGallery();
+    renderProjects();
+    renderCapabilities();
+    renderExperience();
     renderContact();
     renderFooter();
     renderLightbox();
+    setupGsapMotion();
   }
 
   bindLanguageSwitch();
