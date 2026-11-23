@@ -372,9 +372,8 @@ window.SITE_DATA = {
             }
           },
           {
-            monogram: "MG",
-            monogramBg: "#f2eff8",
-            monogramColor: "#483772",
+            logo: "assets/images/logo-migu.png",
+            logoClass: "wordmark",
             active: false,
             org: { zh: "中国移动咪咕数字传媒有限公司", en: "China Mobile Migu Digital Media Co., Ltd." },
             orgTag: { zh: "运营商全资子公司", en: "China Mobile Subsidiary" },
