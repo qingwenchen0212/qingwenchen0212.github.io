@@ -353,9 +353,8 @@ window.SITE_DATA = {
             }
           },
           {
-            monogram: "AI",
-            monogramBg: "#eef5f2",
-            monogramColor: "#1f5f4d",
+            logo: "assets/images/logo-feishu.png",
+            logoClass: "",
             active: false,
             org: { zh: "飞书 / 豆包抖音官方账号", en: "Feishu & Doubao Official Douyin Accounts" },
             orgTag: { zh: "MCN 合作", en: "MCN Partner" },
