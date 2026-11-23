@@ -84,7 +84,14 @@
 
     el.innerHTML = `
       <div class="hero-stage">
-        <div class="hero-copy-pane">
+        <div class="hero-stage__pane">
+          <img class="hero-stage__img" src="${escapeHtml(h.primaryImage)}" alt="${escapeHtml(t(h.primaryAlt))}" style="object-position: center 22%;" />
+        </div>
+        <div class="hero-stage__pane hero-stage__pane--secondary">
+          <img class="hero-stage__img" src="${escapeHtml(h.secondaryImage)}" alt="${escapeHtml(t(h.secondaryAlt))}" style="object-position: center 22%;" />
+        </div>
+        <div class="hero-stage__scrim" aria-hidden="true"></div>
+        <div class="hero-overlay">
           <div class="hero-overlay__content">
             <p class="hero-eyebrow">${escapeHtml(t(h.eyebrow))}</p>
             <h1 class="hero-title">${escapeHtml(t(h.headline))}</h1>
@@ -93,14 +100,6 @@
               <a class="pill-btn pill-btn--light" href="#projects">${escapeHtml(t(h.primaryCta))}</a>
               <a class="pill-btn pill-btn--ghost-light" href="#gallery">${escapeHtml(t(h.secondaryCta))}</a>
             </div>
-          </div>
-        </div>
-        <div class="hero-visual-pane">
-          <div class="hero-stage__pane">
-            <img class="hero-stage__img" src="${escapeHtml(h.primaryImage)}" alt="${escapeHtml(t(h.primaryAlt))}" style="object-position: center 20%;" />
-          </div>
-          <div class="hero-stage__pane hero-stage__pane--secondary">
-            <img class="hero-stage__img" src="${escapeHtml(h.secondaryImage)}" alt="${escapeHtml(t(h.secondaryAlt))}" style="object-position: center 22%;" />
           </div>
         </div>
       </div>

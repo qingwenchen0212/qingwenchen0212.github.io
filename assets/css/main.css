@@ -416,7 +416,7 @@ img {
 }
 
 /* ==========================================================================
-   2. Nike Editorial Split Hero (Zero Text Over Faces)
+   2. Nike Full-Bleed Dual Photographic Hero Banner
    ========================================================================== */
 .hero-section {
   position: relative;
@@ -426,72 +426,16 @@ img {
 
 .hero-stage {
   position: relative;
-  max-width: 1680px;
-  margin: 0 auto;
-  min-height: clamp(470px, 64vh, 640px);
-  display: grid;
-  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
-}
-
-.hero-copy-pane {
-  display: flex;
-  align-items: center;
-  padding: clamp(2.4rem, 5vw, 4.2rem) clamp(1.5rem, 3.6vw, 3.4rem) clamp(2.4rem, 5vw, 4.2rem) var(--gutter);
-  background: var(--bg-dark);
-  color: #ffffff;
-  z-index: 2;
-}
-
-.hero-overlay__content {
   width: 100%;
-  max-width: 560px;
-  color: #ffffff;
-}
-
-.hero-eyebrow {
-  margin: 0 0 0.75rem;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.72);
-}
-
-.hero-title {
-  margin: 0 0 0.9rem;
-  font-size: clamp(2.1rem, 3.6vw, 3.35rem);
-  font-weight: 900;
-  letter-spacing: -0.025em;
-  line-height: 1.12;
-  color: #ffffff;
-}
-
-.hero-subtitle {
-  margin: 0 0 1.65rem;
-  font-size: clamp(0.95rem, 1.15vw, 1.04rem);
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.8);
-  line-height: 1.65;
-}
-
-.hero-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-}
-
-.hero-visual-pane {
+  height: clamp(470px, 68vh, 680px);
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2px;
-  background: var(--bg-dark);
-  min-height: 100%;
 }
 
 .hero-stage__pane {
   position: relative;
   overflow: hidden;
-  background: #1a1a1a;
+  background: #181818;
 }
 
 .hero-stage__img {
@@ -501,6 +445,69 @@ img {
   display: block;
   filter: contrast(1.03) saturate(1.02);
   will-change: transform;
+}
+
+.hero-stage__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(12, 12, 12, 0.84) 0%,
+    rgba(12, 12, 12, 0.36) 44%,
+    rgba(12, 12, 12, 0.1) 100%
+  );
+  pointer-events: none;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: clamp(2.2rem, 5vw, 3.8rem);
+}
+
+.hero-overlay__content {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding-inline: var(--gutter);
+  color: #ffffff;
+  animation: fadeInUp 0.45s ease both;
+}
+
+.hero-eyebrow {
+  margin: 0 0 0.6rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.84);
+}
+
+.hero-title {
+  margin: 0 0 0.65rem;
+  font-size: clamp(2.35rem, 5.2vw, 4.4rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1.06;
+  color: #ffffff;
+  max-width: 16ch;
+}
+
+.hero-subtitle {
+  margin: 0 0 1.45rem;
+  font-size: clamp(0.98rem, 1.35vw, 1.14rem);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 60ch;
+  line-height: 1.55;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
 }
 
 /* ==========================================================================
@@ -1477,13 +1484,7 @@ img {
 
   .hero-stage {
     grid-template-columns: 1fr;
-    min-height: auto;
-  }
-
-  .hero-visual-pane {
-    order: -1;
-    height: 360px;
-    grid-template-columns: 1fr;
+    height: clamp(460px, 74vh, 580px);
   }
 
   .hero-stage__pane--secondary {
