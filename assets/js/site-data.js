@@ -63,8 +63,8 @@ window.SITE_DATA = {
       galleryFilter: "portrait"
     },
     {
-      image: "assets/images/gallery/live-01.jpg",
-      pos: "center top",
+      image: "assets/images/gallery/live-02.jpg",
+      pos: "center 18%",
       eyebrow: { zh: "AI LIVE HOSTING · 532H · 58.2% 转化", en: "AI LIVE HOSTING · 532 HRS · 58.2% CONV." },
       title: { zh: "AI 产品官方直播与场景化叙事", en: "Official AI & Brand Live Commerce" },
       cta: { zh: "查看直播实录", en: "View Live Showcase" },
