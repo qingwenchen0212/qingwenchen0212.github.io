@@ -441,7 +441,7 @@
   }
 
   /* ------------------------------------------------------------------------
-     7. Core Strengths & Capabilities (#capabilities)
+     7. Core Capabilities (#capabilities)
      ------------------------------------------------------------------------ */
   function renderCapabilities() {
     const el = document.getElementById("capabilities");
@@ -458,30 +458,15 @@
       )
       .join("");
 
-    const groupsHtml = (data.capabilities.groups || [])
-      .map((g) => {
-        const tagsHtml = listOf(g.tags)
-          .map((tag) => `<span class="cap-tag">${escapeHtml(tag)}</span>`)
-          .join("");
-        return `
-          <div class="cap-group">
-            <h3 class="cap-group__title">${escapeHtml(t(g.title))}</h3>
-            <div class="cap-tags">${tagsHtml}</div>
-          </div>
-        `;
-      })
-      .join("");
-
     el.innerHTML = `
       <div class="container">
         <div class="section-bar">
           <div>
             <p class="section-bar__eyebrow">${escapeHtml(t(data.capabilities.sub))}</p>
-            <h2 class="section-bar__title">${escapeHtml(t(data.about.strengthsTitle))} &amp; ${escapeHtml(t(data.capabilities.heading))}</h2>
+            <h2 class="section-bar__title">${escapeHtml(t(data.capabilities.heading))}</h2>
           </div>
         </div>
         <div class="strengths-grid">${strengthsHtml}</div>
-        <div class="cap-groups">${groupsHtml}</div>
       </div>
     `;
   }
@@ -900,7 +885,7 @@
           revealGroup("#spotlight", "#spotlight .spotlight-tile", 0.12);
           revealGroup("#gallery", "#gallery .gallery-card", 0.05);
           revealGroup("#projects", "#projects .case-card", 0.08);
-          revealGroup("#capabilities", "#capabilities .strength-card, #capabilities .cap-group", 0.07);
+          revealGroup("#capabilities", "#capabilities .strength-card", 0.07);
           revealGroup("#experience", "#experience .career-row", 0.07);
           revealGroup("#contact", "#contact .contact-box", 0.08);
         }
