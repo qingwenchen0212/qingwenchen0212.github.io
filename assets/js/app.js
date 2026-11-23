@@ -127,11 +127,6 @@
       )
       .join("");
 
-    const metaTags = (data.profile.links || [])
-      .slice(0, 3)
-      .map((l) => `<span>${escapeHtml(t(l.label))}</span>`)
-      .join("");
-
     const headline =
       state.lang === "zh"
         ? "把复杂技术转化为可传播、可销售、可沉淀的品牌资产"
@@ -143,7 +138,6 @@
           <p class="manifesto__eyebrow">${escapeHtml(t(data.about.sub))} · ${escapeHtml(t(data.about.heading))}</p>
           <h2 class="manifesto__headline">${escapeHtml(headline)}</h2>
           <div class="manifesto__body">${paragraphs}</div>
-          <div class="manifesto__meta">${metaTags}</div>
         </div>
         <div class="metrics-grid">${metricsHtml}</div>
       </div>
