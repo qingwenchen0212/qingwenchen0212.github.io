@@ -125,6 +125,7 @@
           : "";
         return `
         <div class="metric-card">
+          <span class="card-accent-line" aria-hidden="true"></span>
           <div class="metric-card__value" data-metric-idx="${idx}"${dataAttrs}>${escapeHtml(t(m.value))}</div>
           <div class="metric-card__label">${escapeHtml(t(m.label))}</div>
         </div>`;
@@ -400,6 +401,7 @@
 
         return `
           <article class="case-card${featuredClass}">
+            <span class="card-accent-line" aria-hidden="true"></span>
             <div>
               <div class="case-card__meta">
                 <span class="case-badge">${escapeHtml(t(proj.badge))}</span>
@@ -434,6 +436,7 @@
         state.projectFilter = btn.dataset.filter;
         renderProjects();
         animateFilterItems("#projects .case-card");
+        bindHoverGlideAll("#projects .case-card", 1.022, -4);
       });
     });
   }
@@ -449,6 +452,7 @@
       .map(
         (s) => `
         <article class="strength-card">
+          <span class="card-accent-line" aria-hidden="true"></span>
           <span class="strength-card__index">${escapeHtml(s.index)}</span>
           <h3 class="strength-card__title">${escapeHtml(t(s.title))}</h3>
           <p class="strength-card__desc">${escapeHtml(t(s.desc))}</p>
@@ -796,6 +800,33 @@
     );
   }
 
+  function bindCardHoverGlide(card, scaleVal = 1.024, yLift = -4) {
+    if (!window.gsap || prefersReducedMotion() || !card) return;
+    card.addEventListener("mouseenter", () => {
+      window.gsap.to(card, {
+        scale: scaleVal,
+        y: yLift,
+        duration: 0.26,
+        ease: "power2.out",
+        overwrite: "auto"
+      });
+    });
+    card.addEventListener("mouseleave", () => {
+      window.gsap.to(card, {
+        scale: 1,
+        y: 0,
+        duration: 0.28,
+        ease: "power2.out",
+        overwrite: "auto"
+      });
+    });
+  }
+
+  function bindHoverGlideAll(selector, scaleVal = 1.024, yLift = -4) {
+    if (!window.gsap || prefersReducedMotion()) return;
+    document.querySelectorAll(selector).forEach((el) => bindCardHoverGlide(el, scaleVal, yLift));
+  }
+
   function setupGsapMotion() {
     if (!window.gsap) return;
     const gsap = window.gsap;
@@ -878,17 +909,48 @@
             });
           };
 
-          revealGroup("#about", "#about .manifesto > *, #about .metric-card", 0.06);
+          revealGroup("#about", "#about .manifesto > *", 0.06);
           revealGroup("#spotlight", "#spotlight .spotlight-tile", 0.12);
           revealGroup("#gallery", "#gallery .gallery-card", 0.05);
-          revealGroup("#projects", "#projects .case-card", 0.08);
-          revealGroup("#capabilities", "#capabilities .strength-card", 0.07);
           revealGroup("#contact", "#contact .contact-box", 0.08);
         }
       }
 
-      // 2b. Fast count-up (within 2.6s) for About impact metrics
+      // 2b. About impact metrics: scroll slide-in + fast count-up (< 3s) + hover micro-zoom
       if (ScrollTrigger) {
+        const metricCards = gsap.utils.toArray("#about .metric-card");
+        metricCards.forEach((card, idx) => {
+          const line = card.querySelector(".card-accent-line");
+          const valEl = card.querySelector(".metric-card__value");
+          const labelEl = card.querySelector(".metric-card__label");
+
+          const cardTl = gsap.timeline({
+            scrollTrigger: {
+              trigger: "#about .metrics-grid",
+              start: "clamp(top 90%)",
+              toggleActions: "play none none reverse"
+            }
+          });
+
+          if (line) {
+            cardTl.from(line, { scaleX: 0, duration: 0.5, ease: "power2.out" }, idx * 0.08);
+          }
+          cardTl.from(
+            card,
+            { y: 28, autoAlpha: 0, duration: 0.55, ease: "power3.out" },
+            idx * 0.08
+          );
+          if (valEl || labelEl) {
+            cardTl.from(
+              [valEl, labelEl].filter(Boolean),
+              { x: 16, autoAlpha: 0, duration: 0.48, stagger: 0.05, ease: "power3.out" },
+              idx * 0.08 + 0.08
+            );
+          }
+
+          bindCardHoverGlide(card, 1.028, -4);
+        });
+
         const metricEls = gsap.utils.toArray("#about .metric-card__value[data-count-end]");
         if (metricEls.length) {
           ScrollTrigger.create({
@@ -921,6 +983,70 @@
             }
           });
         }
+
+        // 2c. Selected Projects cards: per-card scroll slide-in + top hairline + hover micro-zoom
+        gsap.utils.toArray("#projects .case-card").forEach((card, idx) => {
+          const line = card.querySelector(".card-accent-line");
+          const titleEl = card.querySelector(".case-title");
+          const summaryEl = card.querySelector(".case-summary");
+          const kpisEl = card.querySelector(".case-kpis");
+
+          const projTl = gsap.timeline({
+            scrollTrigger: {
+              trigger: card,
+              start: "clamp(top 90%)",
+              toggleActions: "play none none reverse"
+            }
+          });
+
+          if (line) {
+            projTl.from(line, { scaleX: 0, duration: 0.52, ease: "power2.out" }, 0);
+          }
+          projTl.from(
+            card,
+            { y: 30, autoAlpha: 0, duration: 0.56, ease: "power3.out" },
+            0
+          );
+          projTl.from(
+            [titleEl, summaryEl, kpisEl].filter(Boolean),
+            { x: idx % 2 === 0 ? -18 : 18, autoAlpha: 0, duration: 0.52, stagger: 0.04, ease: "power3.out" },
+            0.08
+          );
+
+          bindCardHoverGlide(card, 1.02, -4);
+        });
+
+        // 2d. Core Capabilities cards: matching scroll slide-in + top hairline + hover micro-zoom
+        gsap.utils.toArray("#capabilities .strength-card").forEach((card, idx) => {
+          const line = card.querySelector(".card-accent-line");
+          const indexEl = card.querySelector(".strength-card__index");
+          const titleEl = card.querySelector(".strength-card__title");
+          const descEl = card.querySelector(".strength-card__desc");
+
+          const capTl = gsap.timeline({
+            scrollTrigger: {
+              trigger: "#capabilities .strengths-grid",
+              start: "clamp(top 90%)",
+              toggleActions: "play none none reverse"
+            }
+          });
+
+          if (line) {
+            capTl.from(line, { scaleX: 0, duration: 0.52, ease: "power2.out" }, idx * 0.09);
+          }
+          capTl.from(
+            card,
+            { y: 30, autoAlpha: 0, duration: 0.56, ease: "power3.out" },
+            idx * 0.09
+          );
+          capTl.from(
+            [indexEl, titleEl, descEl].filter(Boolean),
+            { x: 18, autoAlpha: 0, duration: 0.5, stagger: 0.04, ease: "power3.out" },
+            idx * 0.09 + 0.08
+          );
+
+          bindCardHoverGlide(card, 1.028, -4);
+        });
       }
 
       // 3. Per-unit slide-in choreography for every Work & Education card
@@ -975,25 +1101,7 @@
             );
           }
 
-          // Subtle hover scale & glide as cursor moves across cards
-          row.addEventListener("mouseenter", () => {
-            gsap.to(row, {
-              scale: 1.018,
-              y: -3,
-              duration: 0.28,
-              ease: "power2.out",
-              overwrite: "auto"
-            });
-          });
-          row.addEventListener("mouseleave", () => {
-            gsap.to(row, {
-              scale: 1,
-              y: 0,
-              duration: 0.3,
-              ease: "power2.out",
-              overwrite: "auto"
-            });
-          });
+          bindCardHoverGlide(row, 1.018, -3);
         });
       }
     });

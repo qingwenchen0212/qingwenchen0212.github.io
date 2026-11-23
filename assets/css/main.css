@@ -589,14 +589,40 @@ img {
 }
 
 .metric-card {
+  position: relative;
+  z-index: 1;
   padding: 1.65rem 1.45rem;
   border-radius: var(--radius-md);
   background: var(--bg-surface);
-  transition: background-color 0.18s ease;
+  overflow: hidden;
+  transform-origin: center center;
+  will-change: transform, opacity;
+  transition: background-color 0.24s ease, box-shadow 0.26s ease;
 }
 
 .metric-card:hover {
-  background: var(--bg-surface-hover);
+  z-index: 2;
+  background: #ffffff;
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.08);
+}
+
+.card-accent-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--bg-dark);
+  transform-origin: left center;
+  opacity: 0.14;
+  transition: opacity 0.22s ease;
+  pointer-events: none;
+}
+
+.metric-card:hover .card-accent-line,
+.strength-card:hover .card-accent-line,
+.case-card:hover .card-accent-line {
+  opacity: 0.9;
 }
 
 .metric-card__value {
@@ -606,6 +632,11 @@ img {
   color: var(--text-strong);
   line-height: 1.1;
   font-variant-numeric: tabular-nums;
+  transition: transform 0.24s ease;
+}
+
+.metric-card:hover .metric-card__value {
+  transform: translateX(3px);
 }
 
 .metric-card__label {
@@ -826,20 +857,24 @@ img {
 }
 
 .case-card {
+  position: relative;
+  z-index: 1;
   padding: 1.85rem 1.85rem 1.7rem;
   border-radius: var(--radius-md);
   background: #ffffff;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: 1.15rem;
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
-  animation: fadeInUp 0.24s ease both;
+  transform-origin: center center;
+  will-change: transform, opacity;
+  transition: box-shadow 0.26s ease;
 }
 
 .case-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.06);
+  z-index: 2;
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.08);
 }
 
 .case-card--featured {
@@ -879,6 +914,11 @@ img {
   letter-spacing: -0.015em;
   color: var(--text-strong);
   line-height: 1.32;
+  transition: transform 0.24s ease;
+}
+
+.case-card:hover .case-title {
+  transform: translateX(3px);
 }
 
 .case-summary {
@@ -910,12 +950,25 @@ img {
 .strengths-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1.5rem;
+  gap: 1.15rem;
 }
 
 .strength-card {
-  padding-top: 1.15rem;
-  border-top: 2px solid var(--bg-dark);
+  position: relative;
+  z-index: 1;
+  padding: 1.65rem 1.45rem 1.55rem;
+  border-radius: var(--radius-md);
+  background: var(--bg-surface);
+  overflow: hidden;
+  transform-origin: center center;
+  will-change: transform, opacity;
+  transition: background-color 0.24s ease, box-shadow 0.26s ease;
+}
+
+.strength-card:hover {
+  z-index: 2;
+  background: #ffffff;
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.08);
 }
 
 .strength-card__index {
@@ -933,6 +986,11 @@ img {
   font-weight: 800;
   color: var(--text-strong);
   line-height: 1.3;
+  transition: transform 0.24s ease;
+}
+
+.strength-card:hover .strength-card__title {
+  transform: translateX(3px);
 }
 
 .strength-card__desc {
