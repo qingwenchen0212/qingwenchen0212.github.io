@@ -118,13 +118,17 @@
       .join("");
 
     const metricsHtml = (data.about.metrics || [])
-      .map(
-        (m) => `
+      .map((m, idx) => {
+        const cfg = m.counter && (m.counter[state.lang] || m.counter.en);
+        const dataAttrs = cfg
+          ? ` data-count-end="${escapeHtml(cfg.end)}" data-count-decimals="${escapeHtml(cfg.decimals || 0)}" data-count-suffix="${escapeHtml(cfg.suffix || "")}" data-count-final="${escapeHtml(t(m.value))}"`
+          : "";
+        return `
         <div class="metric-card">
-          <div class="metric-card__value">${escapeHtml(t(m.value))}</div>
+          <div class="metric-card__value" data-metric-idx="${idx}"${dataAttrs}>${escapeHtml(t(m.value))}</div>
           <div class="metric-card__label">${escapeHtml(t(m.label))}</div>
-        </div>`
-      )
+        </div>`;
+      })
       .join("");
 
     const headline =
@@ -880,6 +884,42 @@
           revealGroup("#projects", "#projects .case-card", 0.08);
           revealGroup("#capabilities", "#capabilities .strength-card", 0.07);
           revealGroup("#contact", "#contact .contact-box", 0.08);
+        }
+      }
+
+      // 2b. Fast count-up (within 2.6s) for About impact metrics
+      if (ScrollTrigger) {
+        const metricEls = gsap.utils.toArray("#about .metric-card__value[data-count-end]");
+        if (metricEls.length) {
+          ScrollTrigger.create({
+            trigger: "#about .metrics-grid",
+            start: "clamp(top 88%)",
+            once: true,
+            onEnter: () => {
+              metricEls.forEach((el, idx) => {
+                const endVal = parseFloat(el.dataset.countEnd);
+                const decimals = parseInt(el.dataset.countDecimals || "0", 10);
+                const suffix = el.dataset.countSuffix || "";
+                const finalText = el.dataset.countFinal || el.textContent;
+                if (!Number.isFinite(endVal)) return;
+
+                const counter = { val: 0 };
+                el.textContent = (0).toFixed(decimals) + suffix;
+                gsap.to(counter, {
+                  val: endVal,
+                  duration: 2.2,
+                  delay: idx * 0.1,
+                  ease: "power3.out",
+                  onUpdate: () => {
+                    el.textContent = counter.val.toFixed(decimals) + suffix;
+                  },
+                  onComplete: () => {
+                    el.textContent = finalText;
+                  }
+                });
+              });
+            }
+          });
         }
       }
 

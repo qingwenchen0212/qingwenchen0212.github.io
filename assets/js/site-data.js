@@ -138,18 +138,34 @@ window.SITE_DATA = {
     metrics: [
       {
         value: { zh: "10 年+", en: "10+ Yrs" },
+        counter: {
+          zh: { end: 10, decimals: 0, suffix: " 年+" },
+          en: { end: 10, decimals: 0, suffix: "+ Yrs" }
+        },
         label: { zh: "品牌公关与整合营销实战", en: "Brand PR & Integrated Marketing" }
       },
       {
         value: { zh: "20.83 亿+", en: "2.08B+" },
+        counter: {
+          zh: { end: 20.83, decimals: 2, suffix: " 亿+" },
+          en: { end: 2.08, decimals: 2, suffix: "B+" }
+        },
         label: { zh: "标杆项目全网综合曝光", en: "Peak Flagship Campaign Impressions" }
       },
       {
         value: { zh: "532 小时", en: "532 hrs" },
+        counter: {
+          zh: { end: 532, decimals: 0, suffix: " 小时" },
+          en: { end: 532, decimals: 0, suffix: " hrs" }
+        },
         label: { zh: "飞书/豆包官方直播 · 转化率 58.2%", en: "Feishu & Doubao Live · 58.2% Avg. Conv." }
       },
       {
-        value: { zh: "千万级", en: "10M+" },
+        value: { zh: "1000 万+", en: "10M+" },
+        counter: {
+          zh: { end: 1000, decimals: 0, suffix: " 万+" },
+          en: { end: 10, decimals: 0, suffix: "M+" }
+        },
         label: { zh: "具身智能 0→1 曝光 · 165+ 媒体", en: "Embodied AI 0→1 Reach · 165+ Media" }
       }
     ],

@@ -585,6 +585,7 @@ img {
   letter-spacing: -0.03em;
   color: var(--text-strong);
   line-height: 1.1;
+  font-variant-numeric: tabular-nums;
 }
 
 .metric-card__label {
