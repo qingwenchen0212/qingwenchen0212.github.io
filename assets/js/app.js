@@ -974,6 +974,26 @@
               0.08
             );
           }
+
+          // Subtle hover scale & glide as cursor moves across cards
+          row.addEventListener("mouseenter", () => {
+            gsap.to(row, {
+              scale: 1.018,
+              y: -3,
+              duration: 0.28,
+              ease: "power2.out",
+              overwrite: "auto"
+            });
+          });
+          row.addEventListener("mouseleave", () => {
+            gsap.to(row, {
+              scale: 1,
+              y: 0,
+              duration: 0.3,
+              ease: "power2.out",
+              overwrite: "auto"
+            });
+          });
         });
       }
     });
@@ -998,6 +1018,20 @@
     );
   }
 
+  function bindImageProtection() {
+    const protectedIds = ["top", "spotlight", "gallery", "lightbox"];
+    const blockEvent = (event) => {
+      const target = event.target;
+      if (!target || !target.closest) return;
+      const inProtected = protectedIds.some((id) => target.closest(`#${id}`));
+      if (inProtected && (target.tagName === "IMG" || target.closest(".hero-stage, .spotlight-tile, .gallery-card, .lightbox__dialog"))) {
+        event.preventDefault();
+      }
+    };
+    document.addEventListener("contextmenu", blockEvent);
+    document.addEventListener("dragstart", blockEvent);
+  }
+
   function renderAll() {
     renderHeader();
     renderHero();
@@ -1015,6 +1049,7 @@
 
   bindLanguageSwitch();
   bindLightboxKeyboard();
+  bindImageProtection();
   renderAll();
   setupScrollSpy();
 })();

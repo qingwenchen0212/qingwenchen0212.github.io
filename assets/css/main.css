@@ -85,6 +85,26 @@ img {
   height: auto;
 }
 
+.hero-stage__img,
+.spotlight-tile__img,
+.gallery-card__img,
+.lightbox__img {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+  pointer-events: none;
+}
+
+.hero-stage,
+.spotlight-tile,
+.gallery-card,
+.lightbox__dialog {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -983,6 +1003,7 @@ img {
 
 .career-row {
   position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: 164px minmax(0, 1fr);
   gap: 1.75rem;
@@ -991,12 +1012,14 @@ img {
   border-radius: var(--radius-md);
   background: #ffffff;
   overflow: hidden;
+  transform-origin: center center;
   will-change: transform, opacity;
-  transition: box-shadow 0.24s ease, background-color 0.24s ease;
+  transition: box-shadow 0.26s ease, background-color 0.26s ease;
 }
 
 .career-row:hover {
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.06);
+  z-index: 2;
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.08);
 }
 
 .career-row__line {
