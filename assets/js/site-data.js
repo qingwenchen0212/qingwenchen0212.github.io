@@ -393,9 +393,8 @@ window.SITE_DATA = {
             }
           },
           {
-            monogram: "HC",
-            monogramBg: "#faf2ee",
-            monogramColor: "#8a4225",
+            logo: "assets/images/logo-huace.png",
+            logoClass: "badge",
             active: false,
             org: { zh: "浙江华策影视股份有限公司", en: "Zhejiang Huace Film & TV Co., Ltd." },
             orgTag: { zh: "上市公司", en: "Public Company" },
