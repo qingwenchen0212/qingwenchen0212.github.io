@@ -265,7 +265,7 @@ window.SITE_DATA = {
             active: true,
             org: { zh: "灵巧智能（DexRobot）", en: "DexRobot (Lingqiao Intelligence)" },
             orgTag: { zh: "具身智能 · 智能灵巧手", en: "Embodied AI · Dexterous Hand" },
-            period: { zh: "2026 — 至今", en: "2026 — Present" },
+            period: { zh: "2026.09 — 至今", en: "Sep 2026 — Present" },
             role: { zh: "品牌负责人", en: "Head of Brand" },
             bullets: {
               zh: [
@@ -283,7 +283,7 @@ window.SITE_DATA = {
             active: false,
             org: { zh: "北京灵生科技有限公司", en: "Beijing LivSyn Robotics Co., Ltd." },
             orgTag: { zh: "具身智能初创企业", en: "Embodied AI Startup" },
-            period: { zh: "2026.01 — 2026", en: "Jan 2026 — 2026" },
+            period: { zh: "2026.01 — 2026.06", en: "Jan 2026 — Jun 2026" },
             role: { zh: "品牌市场负责人", en: "Head of Brand & Marketing" },
             bullets: {
               zh: [
