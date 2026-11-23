@@ -647,7 +647,7 @@ window.SITE_DATA = {
   },
 
   footer: {
-    zh: "© 2026 陈卿雯 · 品牌市场 / AI 硬科技公关传播",
-    en: "© 2026 Qingwen Chen · Brand & Marketing / AI PR"
+    zh: "© 2026 陈卿雯 · 灵巧智能（DexRobot）品牌负责人 · 中国传媒大学 MBA",
+    en: "© 2026 Qingwen Chen · Head of Brand at DexRobot · MBA, Communication Univ. of China"
   }
 };
