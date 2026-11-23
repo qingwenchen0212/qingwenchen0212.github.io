@@ -540,10 +540,8 @@
     const ui = data.contact.ui;
     const emailAddress = `${data.contact.emailUser}@${data.contact.emailDomain}`;
 
-    const brandRole =
-      state.lang === "zh" ? "陈卿雯 · 品牌负责人" : "Qingwen Chen · Head of Brand";
-    const brandOrg =
-      state.lang === "zh" ? "灵巧智能（DexRobot）" : "DexRobot (Lingqiao Intelligence)";
+    const brandName = t(data.profile.name);
+    const brandTagline = t(data.meta.utilityNote);
 
     el.innerHTML = `
       <div class="container">
@@ -553,8 +551,8 @@
               <img class="contact-brand__logo" src="assets/images/logo-dexrobot.png" alt="DexRobot 灵巧智能 logo" />
             </a>
             <div class="contact-brand__meta">
-              <p class="contact-brand__name">${escapeHtml(brandRole)}</p>
-              <p class="contact-brand__org">${escapeHtml(brandOrg)}</p>
+              <p class="contact-brand__name">${escapeHtml(brandName)}</p>
+              <p class="contact-brand__org">${escapeHtml(brandTagline)}</p>
             </div>
           </div>
           <div class="contact-main">
