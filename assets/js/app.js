@@ -491,6 +491,7 @@
 
             return `
               <li class="career-row">
+                <span class="career-row__line" aria-hidden="true"></span>
                 <div class="career-logo-cell">${logoCellHtml}</div>
                 <div class="career-body">
                   <div class="career-header">
@@ -878,9 +879,62 @@
           revealGroup("#gallery", "#gallery .gallery-card", 0.05);
           revealGroup("#projects", "#projects .case-card", 0.08);
           revealGroup("#capabilities", "#capabilities .strength-card", 0.07);
-          revealGroup("#experience", "#experience .career-row", 0.07);
           revealGroup("#contact", "#contact .contact-box", 0.08);
         }
+      }
+
+      // 3. Per-unit slide-in choreography for every Work & Education card
+      if (ScrollTrigger) {
+        gsap.utils.toArray("#experience .career-group__title").forEach((title) => {
+          gsap.from(title, {
+            x: -18,
+            autoAlpha: 0,
+            duration: 0.48,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: title,
+              start: "clamp(top 92%)",
+              toggleActions: "play none none reverse"
+            }
+          });
+        });
+
+        gsap.utils.toArray("#experience .career-row").forEach((row) => {
+          const line = row.querySelector(".career-row__line");
+          const logo = row.querySelector(".career-logo-cell");
+          const body = row.querySelector(".career-body");
+
+          const rowTl = gsap.timeline({
+            scrollTrigger: {
+              trigger: row,
+              start: "clamp(top 90%)",
+              toggleActions: "play none none reverse"
+            }
+          });
+
+          if (line) {
+            rowTl.from(line, { scaleX: 0, duration: 0.52, ease: "power2.out" }, 0);
+          }
+          rowTl.from(
+            row,
+            { y: 30, autoAlpha: 0, duration: 0.56, ease: "power3.out" },
+            0
+          );
+          if (logo) {
+            rowTl.from(
+              logo,
+              { x: -26, autoAlpha: 0, duration: 0.52, ease: "power3.out" },
+              0.06
+            );
+          }
+          if (body) {
+            rowTl.from(
+              body,
+              { x: 26, autoAlpha: 0, duration: 0.58, ease: "power3.out" },
+              0.08
+            );
+          }
+        });
       }
     });
 
