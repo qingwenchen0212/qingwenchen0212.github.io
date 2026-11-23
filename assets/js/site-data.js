@@ -74,10 +74,10 @@ window.SITE_DATA = {
 
   nav: [
     { id: "about", label: { zh: "关于我", en: "About" } },
-    { id: "gallery", label: { zh: "个人形象", en: "Gallery" } },
     { id: "projects", label: { zh: "代表项目", en: "Projects" } },
     { id: "capabilities", label: { zh: "核心能力", en: "Capabilities" } },
     { id: "experience", label: { zh: "工作与教育", en: "Experience" } },
+    { id: "gallery", label: { zh: "个人形象", en: "Gallery" } },
     { id: "contact", label: { zh: "联系方式", en: "Contact" } }
   ],
 
