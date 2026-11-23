@@ -277,9 +277,8 @@ window.SITE_DATA = {
             }
           },
           {
-            monogram: "LS",
-            monogramBg: "#f2f4f8",
-            monogramColor: "#3a4f6b",
+            logo: "assets/images/logo-livsyn.png",
+            logoClass: "wordmark",
             active: false,
             org: { zh: "北京灵生科技有限公司", en: "Beijing LivSyn Robotics Co., Ltd." },
             orgTag: { zh: "具身智能初创企业", en: "Embodied AI Startup" },
