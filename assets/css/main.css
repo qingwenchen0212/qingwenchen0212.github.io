@@ -332,6 +332,7 @@ img {
   background: var(--bg-dark);
   transform-origin: left center;
   transform: scaleX(0);
+  will-change: transform;
   pointer-events: none;
 }
 
@@ -443,11 +444,7 @@ img {
   object-fit: cover;
   display: block;
   filter: contrast(1.03) saturate(1.02);
-  transition: transform 6s ease;
-}
-
-.hero-stage:hover .hero-stage__img {
-  transform: scale(1.02);
+  will-change: transform;
 }
 
 .hero-stage__scrim {

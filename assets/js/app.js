@@ -345,6 +345,16 @@
         renderLightbox();
       }
     };
+
+    if (window.gsap && !prefersReducedMotion()) {
+      window.gsap.from(".lightbox__dialog", {
+        scale: 0.95,
+        autoAlpha: 0,
+        duration: 0.28,
+        ease: "power2.out",
+        clearProps: "transform,opacity,visibility"
+      });
+    }
   }
 
   function bindLightboxKeyboard() {
@@ -778,7 +788,7 @@
     });
   }
 
-  let gsapCtx = null;
+  let gsapMM = null;
   let initialMotionDone = false;
 
   function prefersReducedMotion() {
@@ -789,17 +799,18 @@
   }
 
   function setupGsapMotion() {
-    if (!window.gsap || prefersReducedMotion()) return;
+    if (!window.gsap) return;
     const gsap = window.gsap;
     const ScrollTrigger = window.ScrollTrigger;
     if (ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
 
-    if (gsapCtx) {
-      gsapCtx.revert();
-      gsapCtx = null;
+    if (gsapMM) {
+      gsapMM.revert();
+      gsapMM = null;
     }
 
-    gsapCtx = gsap.context(() => {
+    gsapMM = gsap.matchMedia();
+    gsapMM.add("(prefers-reduced-motion: no-preference)", () => {
       // 1. Reading progress hairline pinned to sticky header
       if (ScrollTrigger) {
         gsap.to("#scroll-progress", {
@@ -815,13 +826,13 @@
 
         // 2. Subtle editorial hero image parallax on scroll
         gsap.to(".hero-stage__img", {
-          yPercent: 9,
+          yPercent: 8,
           ease: "none",
           scrollTrigger: {
             trigger: ".hero-section",
             start: "top top",
             end: "bottom top",
-            scrub: true
+            scrub: 0.4
           }
         });
       }
@@ -841,10 +852,10 @@
             [".hero-eyebrow", ".hero-title", ".hero-subtitle", ".hero-actions"],
             {
               y: 26,
-              opacity: 0,
+              autoAlpha: 0,
               duration: 0.72,
               stagger: 0.09,
-              clearProps: "transform,opacity"
+              clearProps: "transform,opacity,visibility"
             },
             0.12
           );
@@ -856,20 +867,20 @@
             if (!triggerEl || !targetEls.length) return;
             gsap.from(targetEls, {
               y: 24,
-              opacity: 0,
-              duration: 0.65,
+              autoAlpha: 0,
+              duration: 0.62,
               stagger: staggerVal,
               ease: "power2.out",
-              clearProps: "transform,opacity",
+              clearProps: "transform,opacity,visibility",
               scrollTrigger: {
                 trigger: triggerEl,
-                start: "top 86%",
+                start: "clamp(top 88%)",
                 once: true
               }
             });
           };
 
-          revealGroup("#about", "#about .manifesto > *, #about .metric-card", 0.07);
+          revealGroup("#about", "#about .manifesto > *, #about .metric-card", 0.06);
           revealGroup("#spotlight", "#spotlight .spotlight-tile", 0.12);
           revealGroup("#gallery", "#gallery .gallery-card", 0.05);
           revealGroup("#projects", "#projects .case-card", 0.08);
@@ -887,14 +898,15 @@
     if (!window.gsap || prefersReducedMotion()) return;
     window.gsap.fromTo(
       selector,
-      { y: 14, opacity: 0 },
+      { y: 14, autoAlpha: 0 },
       {
         y: 0,
-        opacity: 1,
-        duration: 0.42,
+        autoAlpha: 1,
+        duration: 0.4,
         stagger: 0.04,
         ease: "power2.out",
-        clearProps: "transform,opacity"
+        overwrite: "auto",
+        clearProps: "transform,opacity,visibility"
       }
     );
   }
