@@ -413,9 +413,8 @@ window.SITE_DATA = {
             }
           },
           {
-            monogram: "SM",
-            monogramBg: "#f2f3f5",
-            monogramColor: "#464d56",
+            logo: "assets/images/logo-simei.png",
+            logoClass: "badge",
             active: false,
             org: { zh: "思美传媒股份有限公司", en: "Simei Media Co., Ltd." },
             orgTag: { zh: "上市公司", en: "Public Company" },
