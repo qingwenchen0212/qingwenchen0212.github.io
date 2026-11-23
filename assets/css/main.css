@@ -1114,20 +1114,70 @@ img {
 }
 
 /* ==========================================================================
-   9. Contact Band (#contact)
+   9. Contact Band (#contact — Brand Split Card)
    ========================================================================== */
 .contact-box {
-  padding: clamp(2.2rem, 5vw, 3.6rem) clamp(1.5rem, 4vw, 3rem);
+  padding: clamp(2.2rem, 5vw, 3.6rem) clamp(1.6rem, 4.5vw, 3.6rem);
   border-radius: var(--radius-md);
   background: var(--bg-surface);
-  text-align: center;
+  display: grid;
+  grid-template-columns: minmax(220px, 0.42fr) minmax(0, 1fr);
+  gap: clamp(1.8rem, 4.5vw, 3.8rem);
+  align-items: center;
+  text-align: left;
+}
+
+.contact-brand {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
+  gap: 0.9rem;
+  padding-right: clamp(0.5rem, 2vw, 1.5rem);
+  border-right: 1px solid var(--border-light);
+}
+
+.contact-brand__link {
+  display: inline-block;
+  transition: transform 0.18s ease, opacity 0.18s ease;
+}
+
+.contact-brand__link:hover {
+  transform: translateY(-1px);
+  opacity: 0.92;
+}
+
+.contact-brand__logo {
+  display: block;
+  width: clamp(150px, 16vw, 210px);
+  height: auto;
+  border-radius: 10px;
+}
+
+.contact-brand__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.contact-brand__name {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--text-strong);
+}
+
+.contact-brand__org {
+  margin: 0;
+  font-size: 0.84rem;
+  color: var(--text-muted);
+}
+
+.contact-main {
+  min-width: 0;
 }
 
 .contact-box__eyebrow {
-  margin: 0 0 0.45rem;
+  margin: 0 0 0.4rem;
   font-size: 0.76rem;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -1136,35 +1186,35 @@ img {
 }
 
 .contact-box__title {
-  margin: 0 0 0.75rem;
-  font-size: clamp(1.65rem, 3vw, 2.35rem);
+  margin: 0 0 0.7rem;
+  font-size: clamp(1.65rem, 3vw, 2.3rem);
   font-weight: 900;
   letter-spacing: -0.025em;
   color: var(--text-strong);
 }
 
 .contact-intro {
-  margin: 0 0 1.5rem;
-  max-width: 540px;
-  font-size: 0.98rem;
+  margin: 0 0 1.45rem;
+  max-width: 560px;
+  font-size: 0.97rem;
   color: var(--text-primary);
 }
 
 .contact-actions {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 0.7rem;
 }
 
 .email-reveal {
-  margin-top: 1.25rem;
-  display: flex;
+  margin-top: 1.2rem;
+  display: inline-flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 0.7rem;
-  padding: 0.65rem 1.15rem;
+  padding: 0.6rem 1.1rem;
   background: #ffffff;
   border-radius: var(--radius-pill);
   border: 1px solid var(--border-light);
@@ -1508,6 +1558,18 @@ img {
   .career-row {
     grid-template-columns: 1fr;
     gap: 0.85rem;
+  }
+
+  .contact-box {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .contact-brand {
+    padding-right: 0;
+    padding-bottom: 1.35rem;
+    border-right: none;
+    border-bottom: 1px solid var(--border-light);
   }
 
   .strengths-grid {

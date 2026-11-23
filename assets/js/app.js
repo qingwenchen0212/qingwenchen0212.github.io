@@ -561,58 +561,74 @@
     const ui = data.contact.ui;
     const emailAddress = `${data.contact.emailUser}@${data.contact.emailDomain}`;
 
+    const brandRole =
+      state.lang === "zh" ? "陈卿雯 · 品牌负责人" : "Qingwen Chen · Head of Brand";
+    const brandOrg =
+      state.lang === "zh" ? "灵巧智能（DexRobot）" : "DexRobot (Lingqiao Intelligence)";
+
     el.innerHTML = `
       <div class="container">
         <div class="contact-box">
-          <p class="contact-box__eyebrow">${escapeHtml(t(data.contact.sub))}</p>
-          <h2 class="contact-box__title">${escapeHtml(t(data.contact.heading))}</h2>
-          <p class="contact-intro">${escapeHtml(t(data.contact.intro))}</p>
-          <div class="contact-actions">
-            <button
-              type="button"
-              class="pill-btn pill-btn--dark"
-              id="toggle-email-btn"
-              aria-expanded="${state.emailVisible}"
-              aria-controls="email-reveal-box"
-            >${escapeHtml(state.emailVisible ? t(ui.hideEmail) : t(ui.showEmail))}</button>
-            <button
-              type="button"
-              class="pill-btn pill-btn--outline"
-              id="toggle-message-btn"
-              aria-expanded="${state.messageOpen}"
-              aria-controls="message-form-panel"
-            >${escapeHtml(state.messageOpen ? t(ui.closeMessage) : t(ui.leaveMessage))}</button>
-          </div>
-
-          <div id="email-reveal-box" class="email-reveal" ${state.emailVisible ? "" : "hidden"}>
-            <a class="email-reveal__address" id="revealed-email-link" href="${state.emailVisible ? `mailto:${escapeHtml(emailAddress)}` : "#"}">
-              ${state.emailVisible ? escapeHtml(emailAddress) : ""}
+          <div class="contact-brand">
+            <a class="contact-brand__link" href="https://www.dex-robot.com" target="_blank" rel="noopener" aria-label="DexRobot">
+              <img class="contact-brand__logo" src="assets/images/logo-dexrobot.png" alt="DexRobot 灵巧智能 logo" />
             </a>
-            <button type="button" class="pill-btn pill-btn--outline pill-btn--sm" id="copy-email-btn">
-              ${escapeHtml(t(ui.copy))}
-            </button>
-            <span class="copy-feedback" id="copy-feedback" aria-live="polite"></span>
+            <div class="contact-brand__meta">
+              <p class="contact-brand__name">${escapeHtml(brandRole)}</p>
+              <p class="contact-brand__org">${escapeHtml(brandOrg)}</p>
+            </div>
           </div>
+          <div class="contact-main">
+            <p class="contact-box__eyebrow">${escapeHtml(t(data.contact.sub))}</p>
+            <h2 class="contact-box__title">${escapeHtml(t(data.contact.heading))}</h2>
+            <p class="contact-intro">${escapeHtml(t(data.contact.intro))}</p>
+            <div class="contact-actions">
+              <button
+                type="button"
+                class="pill-btn pill-btn--dark"
+                id="toggle-email-btn"
+                aria-expanded="${state.emailVisible}"
+                aria-controls="email-reveal-box"
+              >${escapeHtml(state.emailVisible ? t(ui.hideEmail) : t(ui.showEmail))}</button>
+              <button
+                type="button"
+                class="pill-btn pill-btn--outline"
+                id="toggle-message-btn"
+                aria-expanded="${state.messageOpen}"
+                aria-controls="message-form-panel"
+              >${escapeHtml(state.messageOpen ? t(ui.closeMessage) : t(ui.leaveMessage))}</button>
+            </div>
 
-          <div id="message-form-panel" class="message-panel" ${state.messageOpen ? "" : "hidden"}>
-            <form id="contact-message-form" novalidate>
-              <div class="form-field">
-                <label class="form-label" for="msg-name">${escapeHtml(t(ui.nameLabel))}</label>
-                <input class="form-input" id="msg-name" name="name" type="text" value="${escapeHtml(t(ui.nameDefault))}" />
-              </div>
-              <div class="form-field">
-                <label class="form-label" for="msg-email">${escapeHtml(t(ui.emailLabel))}</label>
-                <input class="form-input" id="msg-email" name="email" type="email" placeholder="${escapeHtml(t(ui.emailPlaceholder))}" />
-              </div>
-              <div class="form-field">
-                <label class="form-label" for="msg-body">${escapeHtml(t(ui.messageLabel))}</label>
-                <textarea class="form-textarea" id="msg-body" name="message" required placeholder="${escapeHtml(t(ui.messagePlaceholder))}"></textarea>
-              </div>
-              <div class="form-footer">
-                <button type="submit" class="pill-btn pill-btn--dark pill-btn--sm" id="msg-submit-btn">${escapeHtml(t(ui.sendButton))}</button>
-                <p class="form-status" id="msg-status" aria-live="polite"></p>
-              </div>
-            </form>
+            <div id="email-reveal-box" class="email-reveal" ${state.emailVisible ? "" : "hidden"}>
+              <a class="email-reveal__address" id="revealed-email-link" href="${state.emailVisible ? `mailto:${escapeHtml(emailAddress)}` : "#"}">
+                ${state.emailVisible ? escapeHtml(emailAddress) : ""}
+              </a>
+              <button type="button" class="pill-btn pill-btn--outline pill-btn--sm" id="copy-email-btn">
+                ${escapeHtml(t(ui.copy))}
+              </button>
+              <span class="copy-feedback" id="copy-feedback" aria-live="polite"></span>
+            </div>
+
+            <div id="message-form-panel" class="message-panel" ${state.messageOpen ? "" : "hidden"}>
+              <form id="contact-message-form" novalidate>
+                <div class="form-field">
+                  <label class="form-label" for="msg-name">${escapeHtml(t(ui.nameLabel))}</label>
+                  <input class="form-input" id="msg-name" name="name" type="text" value="${escapeHtml(t(ui.nameDefault))}" />
+                </div>
+                <div class="form-field">
+                  <label class="form-label" for="msg-email">${escapeHtml(t(ui.emailLabel))}</label>
+                  <input class="form-input" id="msg-email" name="email" type="email" placeholder="${escapeHtml(t(ui.emailPlaceholder))}" />
+                </div>
+                <div class="form-field">
+                  <label class="form-label" for="msg-body">${escapeHtml(t(ui.messageLabel))}</label>
+                  <textarea class="form-textarea" id="msg-body" name="message" required placeholder="${escapeHtml(t(ui.messagePlaceholder))}"></textarea>
+                </div>
+                <div class="form-footer">
+                  <button type="submit" class="pill-btn pill-btn--dark pill-btn--sm" id="msg-submit-btn">${escapeHtml(t(ui.sendButton))}</button>
+                  <p class="form-status" id="msg-status" aria-live="polite"></p>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
