@@ -655,8 +655,8 @@ img {
 
 .timeline-item {
   display: grid;
-  grid-template-columns: 3.9rem 1.65rem minmax(0, 1fr);
-  column-gap: 0.4rem;
+  grid-template-columns: 7.2rem 1.65rem minmax(0, 1fr);
+  column-gap: 0.45rem;
   align-items: start;
   position: relative;
 }
@@ -673,14 +673,20 @@ img {
 }
 
 .timeline-logo {
-  width: 3rem;
-  height: 3rem;
+  width: 3.1rem;
+  height: 3.1rem;
   object-fit: contain;
   display: block;
 }
 
 .timeline-logo--round {
   border-radius: 50%;
+}
+
+.timeline-logo--wordmark {
+  width: 6.9rem;
+  height: auto;
+  margin-top: 0.32rem;
 }
 
 .timeline-monogram {
@@ -1100,15 +1106,21 @@ img {
   }
 
   .timeline-item {
-    grid-template-columns: 2.9rem 1.3rem minmax(0, 1fr);
-    column-gap: 0.25rem;
+    grid-template-columns: 4.8rem 1.3rem minmax(0, 1fr);
+    column-gap: 0.28rem;
   }
 
   .timeline-logo,
   .timeline-monogram {
-    width: 2.45rem;
-    height: 2.45rem;
+    width: 2.5rem;
+    height: 2.5rem;
     font-size: 0.68rem;
+  }
+
+  .timeline-logo--wordmark {
+    width: 4.5rem;
+    height: auto;
+    margin-top: 0.28rem;
   }
 
   .timeline-header {

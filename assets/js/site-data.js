@@ -379,9 +379,8 @@ window.SITE_DATA = {
             bullets: { zh: [], en: [] }
           },
           {
-            monogram: "CUZ",
-            monogramBg: "#eef3fa",
-            monogramColor: "#234572",
+            logo: "assets/images/logo-cuz.png",
+            logoClass: "wordmark",
             active: false,
             org: { zh: "浙江传媒学院", en: "Communication University of Zhejiang (CUZ)" },
             orgTag: { zh: "全日制学士", en: "Full-Time Bachelor" },
