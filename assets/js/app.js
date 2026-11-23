@@ -866,17 +866,95 @@
         });
       }
 
+      // 2a. Hero dual-pane hover micro-zoom & smooth cursor glide (gsap.quickTo)
+      const heroStage = document.querySelector("#top .hero-stage");
+      if (heroStage) {
+        const heroPanes = gsap.utils.toArray("#top .hero-stage__pane");
+        const heroImgs = gsap.utils.toArray("#top .hero-stage__img");
+        const heroCopy = heroStage.querySelector(".hero-overlay__content");
+
+        const imgXTo = heroImgs.map((img) =>
+          gsap.quickTo(img, "x", { duration: 0.55, ease: "power2.out" })
+        );
+        const copyXTo = heroCopy
+          ? gsap.quickTo(heroCopy, "x", { duration: 0.55, ease: "power2.out" })
+          : null;
+
+        heroStage.addEventListener("mouseenter", () => {
+          heroImgs.forEach((img) => {
+            gsap.to(img, {
+              scale: 1.035,
+              duration: 0.55,
+              ease: "power2.out",
+              overwrite: "auto"
+            });
+          });
+        });
+
+        heroStage.addEventListener("mousemove", (event) => {
+          const rect = heroStage.getBoundingClientRect();
+          if (!rect.width) return;
+          const relX = (event.clientX - rect.left) / rect.width - 0.5; // -0.5 .. 0.5
+          imgXTo.forEach((fn) => fn(relX * -14));
+          if (copyXTo) copyXTo(relX * 8);
+
+          // Gently focus the hovered photo pane (left vs right)
+          if (heroPanes.length > 1) {
+            const activeIdx = relX < 0 ? 0 : 1;
+            heroImgs.forEach((img, idx) => {
+              gsap.to(img, {
+                scale: idx === activeIdx ? 1.055 : 1.02,
+                duration: 0.5,
+                ease: "power2.out",
+                overwrite: "auto"
+              });
+            });
+          }
+        });
+
+        heroStage.addEventListener("mouseleave", () => {
+          imgXTo.forEach((fn) => fn(0));
+          if (copyXTo) copyXTo(0);
+          heroImgs.forEach((img) => {
+            gsap.to(img, {
+              scale: 1,
+              duration: 0.65,
+              ease: "power2.out",
+              overwrite: "auto"
+            });
+          });
+        });
+      }
+
       // Run entrance reveals on initial load only (language switches stay instant & crisp)
       if (!initialMotionDone) {
         initialMotionDone = true;
 
+        const heroPanes = gsap.utils.toArray("#top .hero-stage__pane");
         const heroTl = gsap.timeline({ defaults: { ease: "power3.out" } });
+        if (heroPanes.length >= 2) {
+          heroTl
+            .from(
+              heroPanes[0],
+              { x: -24, autoAlpha: 0, duration: 0.85, clearProps: "transform,opacity,visibility" },
+              0
+            )
+            .from(
+              heroPanes[1],
+              { x: 24, autoAlpha: 0, duration: 0.85, clearProps: "transform,opacity,visibility" },
+              0.06
+            );
+        }
         heroTl
-          .from(".hero-stage__img", {
-            scale: 1.07,
-            duration: 1.25,
-            clearProps: "scale"
-          })
+          .from(
+            ".hero-stage__img",
+            {
+              scale: 1.08,
+              duration: 1.25,
+              clearProps: "scale"
+            },
+            0
+          )
           .from(
             [".hero-eyebrow", ".hero-title", ".hero-subtitle", ".hero-actions"],
             {
@@ -886,7 +964,7 @@
               stagger: 0.09,
               clearProps: "transform,opacity,visibility"
             },
-            0.12
+            0.14
           );
 
         if (ScrollTrigger) {
