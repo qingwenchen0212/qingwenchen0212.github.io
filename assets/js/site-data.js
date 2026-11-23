@@ -9,8 +9,8 @@ window.SITE_DATA = {
   meta: {
     defaultLang: "zh",
     title: {
-      zh: "陈卿雯 — 品牌市场负责人 / AI 硬科技公关传播",
-      en: "Qingwen Chen — Head of Brand & Marketing · AI & Deep-Tech PR"
+      zh: "陈卿雯 — 灵巧智能品牌负责人 / AI 硬科技公关传播",
+      en: "Qingwen Chen — Head of Brand at DexRobot · AI & Deep-Tech PR"
     },
     brand: {
       zh: "陈卿雯",
@@ -43,8 +43,8 @@ window.SITE_DATA = {
       en: "陈卿雯"
     },
     bio: {
-      zh: "品牌市场负责人 · AI / 具身智能硬科技公关传播",
-      en: "Head of Brand & Marketing · Embodied AI & Deep-Tech PR"
+      zh: "灵巧智能品牌负责人 · AI / 具身智能硬科技公关传播",
+      en: "Head of Brand, DexRobot · Embodied AI & Deep-Tech PR"
     },
     links: [
       {
@@ -54,7 +54,7 @@ window.SITE_DATA = {
       },
       {
         icon: "briefcase",
-        label: { zh: "北京灵生科技 · 品牌市场负责人", en: "LivSyn Robotics · Head of Brand" },
+        label: { zh: "灵巧智能 · 品牌负责人", en: "DexRobot · Head of Brand" },
         url: "#experience"
       },
       {
@@ -259,13 +259,31 @@ window.SITE_DATA = {
         title: { zh: "工作经历", en: "Work Experience" },
         items: [
           {
-            monogram: "LS",
+            monogram: "DX",
             monogramBg: "#edf2f9",
             monogramColor: "#234572",
             active: true,
+            org: { zh: "灵巧智能（DexRobot）", en: "DexRobot (Lingqiao Intelligence)" },
+            orgTag: { zh: "具身智能 · 智能灵巧手", en: "Embodied AI · Dexterous Hand" },
+            period: { zh: "2026 — 至今", en: "2026 — Present" },
+            role: { zh: "品牌负责人", en: "Head of Brand" },
+            bullets: {
+              zh: [
+                "统筹具身智能与智能灵巧手方向的品牌战略定位、硬科技产品叙事、媒体公关与行业传播体系建设。"
+              ],
+              en: [
+                "Leading brand strategy, deep-tech product narrative, media PR, and industry communications in embodied AI and dexterous robotics."
+              ]
+            }
+          },
+          {
+            monogram: "LS",
+            monogramBg: "#f2f4f8",
+            monogramColor: "#3a4f6b",
+            active: false,
             org: { zh: "北京灵生科技有限公司", en: "Beijing LivSyn Robotics Co., Ltd." },
             orgTag: { zh: "具身智能初创企业", en: "Embodied AI Startup" },
-            period: { zh: "2026.01 — 至今", en: "Jan 2026 — Present" },
+            period: { zh: "2026.01 — 2026", en: "Jan 2026 — 2026" },
             role: { zh: "品牌市场负责人", en: "Head of Brand & Marketing" },
             bullets: {
               zh: [
