@@ -7,7 +7,7 @@
 
 window.SITE_DATA = {
   meta: {
-    defaultLang: "zh",
+    defaultLang: "en",
     title: {
       zh: "陈卿雯 — 灵巧智能品牌负责人 / AI 硬科技公关传播",
       en: "Qingwen Chen — Head of Brand at DexRobot · AI & Deep-Tech PR"

@@ -9,7 +9,7 @@
   if (!data) return;
 
   const state = {
-    lang: (data.meta && data.meta.defaultLang) || "zh",
+    lang: (data.meta && data.meta.defaultLang) || "en",
     projectFilter: "all",
     galleryFilter: "featured",
     lightboxIndex: -1,
