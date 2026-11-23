@@ -159,7 +159,7 @@
       .map(
         (tile) => `
         <article class="spotlight-tile">
-          <img class="spotlight-tile__img" src="${escapeHtml(tile.image)}?wm=1" alt="${escapeHtml(t(tile.title))}" style="object-position:${escapeHtml(tile.pos || "center 20%")}" />
+          <img class="spotlight-tile__img" src="${escapeHtml(tile.image)}?wm=2" alt="${escapeHtml(t(tile.title))}" style="object-position:${escapeHtml(tile.pos || "center 20%")}" />
           <div class="spotlight-tile__scrim" aria-hidden="true"></div>
           <div class="spotlight-tile__content">
             <p class="spotlight-tile__eyebrow">${escapeHtml(t(tile.eyebrow))}</p>
@@ -229,7 +229,7 @@
         return `
           <button type="button" class="gallery-card" data-gallery-idx="${idx}" aria-label="${escapeHtml(caption)}">
             <span class="gallery-card__frame">
-              <img class="gallery-card__img" src="${escapeHtml(item.src)}?wm=1" alt="${escapeHtml(caption)}" style="object-position:${escapeHtml(pos)}" loading="lazy" />
+              <img class="gallery-card__img" src="${escapeHtml(item.src)}?wm=2" alt="${escapeHtml(caption)}" style="object-position:${escapeHtml(pos)}" loading="lazy" />
             </span>
             <span class="gallery-card__caption">${escapeHtml(caption)}</span>
           </button>
@@ -315,7 +315,7 @@
       <button type="button" class="lightbox__close" id="lb-close" aria-label="${escapeHtml(closeLabel)}">&times;</button>
       <button type="button" class="lightbox__nav lightbox__nav--prev" id="lb-prev" aria-label="${escapeHtml(prevLabel)}">&#8249;</button>
       <div class="lightbox__dialog">
-        <img class="lightbox__img" src="${escapeHtml(item.src)}?wm=1" alt="${escapeHtml(caption)}" />
+        <img class="lightbox__img" src="${escapeHtml(item.src)}?wm=2" alt="${escapeHtml(caption)}" />
         <div class="lightbox__bar">
           <span>${escapeHtml(caption)}</span>
           <span class="lightbox__counter">${state.lightboxIndex + 1} / ${items.length}</span>
