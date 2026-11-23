@@ -27,8 +27,8 @@ window.SITE_DATA = {
   ],
 
   profile: {
-    // Switch to "assets/images/avatar-lifestyle.jpg" if you prefer the candid portrait
-    avatar: "assets/images/avatar.jpg",
+    // Switch to "assets/images/avatar.jpg" if you prefer the studio headshot
+    avatar: "assets/images/avatar-lifestyle.jpg",
     avatarAlt: {
       zh: "陈卿雯个人头像",
       en: "Portrait of Qingwen Chen"
